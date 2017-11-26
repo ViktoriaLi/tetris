@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vlikhotk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/27 15:04:41 by vlikhotk          #+#    #+#             */
-/*   Updated: 2017/11/20 19:25:51 by vlikhotk         ###   ########.fr       */
+/*   Created: 2017/11/01 12:56:14 by vlikhotk          #+#    #+#             */
+/*   Updated: 2017/11/01 13:19:30 by vlikhotk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILLIT_HEADER_H
-# define FILLIT_HEADER_H
+#include "fillit_header.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
+void	ft_putstr(char const *s)
+{
+	int i;
 
-void	ft_putchar(char c);
-void	ft_putstr(char const *s);
-int	ft_sqrt(int nb);
-
-#endif
+	i = 0;
+	if (s)
+	{
+		while (s[i] != '\0')
+		{
+			write(1, &(*(s + i)), 1);
+			i++;
+		}
+	}
+}

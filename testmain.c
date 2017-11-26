@@ -24,13 +24,10 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 	int m;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	l = 0;
-	m = 0;
 	printf("%d\n", quantity);
 	printf("%d\n", numb);
-
+	printf("%s\n", all_blocks[0][0]);
 	while (l < numb)
 	{
 		m = 0;
@@ -45,10 +42,7 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 					while (k < 4)
 					{
 						if (all_blocks[i][j][k] == '#')
-						{
 							field[l][m] = all_blocks[i][j][k];
-							m++;
-						}
 						k++;
 					}
 					j++;
@@ -59,104 +53,42 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 		}
 		l++;
 	}
-	
-
-	/*while (i < quantity && l < numb)
-	{
-		while (k < 4 && all_blocks[i][j][k] == '#')
-		{
-			field[l][m] = all_blocks[i][j][k];
-			m++;
-			k++;
-		}
-		k++;
-	}*/
-
-
-
-
-
-	/*while (l < numb)
-	{
-		m = 0;
-		while (m < numb)
-		{
-			while (i < numb)
-			{
-				l = 0;
-				j = 0;
-				while (j < 4)
-				{
-					k = 0;
-					while (k < 4 && j < 4)
-					{
-						if (all_blocks[i][j][k] == '#')
-						{
-							while (all_blocks[i][j][k] == '#')
-							{
-								field[l][m] = all_blocks[i][j][k];
-								m++;
-								k++;
-							}
-							k = 0;
-							l++;
-							j++;
-						}
-						else
-							k++;					
-					}
-					j++;
-				}
-				i++;
-			}
-			m++;
-		}
-		l++;
-	}*/
-	printf("%s", *field);
 }
 
-void create_field(char ***all_blocks, int quantity)
+void create_field(char all_blocks, int quantity)
 {
 	int i;
-	int j;
 	int numb;
 	char **field;
 
 	i = 0;
 	numb = ft_sqrt(quantity * 4);
+	printf("%d\n", quantity);
+	printf("%d\n", numb);
+	printf("%d\n", ft_sqrt(8));
+	printf("%d\n", ft_sqrt(13));
 	field = (char **)malloc(sizeof(char *) * numb + 1);
 	while (i < numb)
 	{
-		field[i] = (char *)malloc(numb);
+		field[i] = (char *)malloc(numb + 1);
 		i++;
 	}
-	//field[i] = NULL;
-	i = 0;
-	j = 0;
-	while (i < numb)
-	{
-		while (j < numb)
-		{
-			field[i][j] = '.';
-			j++;
-		}
-		field[i][j] = '\n';
-		i++;
-	}
+	field[i] = NULL;
 	fill_field(all_blocks, field, quantity, numb);
 }
 
-void save_blocks(char *buf, char ***all_blocks)
+void save_blocks(char *buf)
 {
 	int i;
 	int j;
 	int k;
 	int l;
+	char all_blocks[26][4][4];
 
 	i = 0;
 	l = 0;
-	while ((buf[l] == '.' || buf[l] == '#' || buf[l] == '\n') && buf[l] != 0)
+	
+	while (buf[l] == '.' || buf[l] == '#' || buf[l] == '\n')
 	{
 		j = 0;
 		while (j < 4)
@@ -177,47 +109,10 @@ void save_blocks(char *buf, char ***all_blocks)
 		i++;
 	}
 	printf("%s\n", all_blocks[0][0]);
-	printf("%s\n", all_blocks[0][1]);
-	printf("%s\n", all_blocks[0][2]);
-	printf("%s\n", all_blocks[0][3]);
-	printf("%s\n", all_blocks[1][0]);
-	printf("%s\n", all_blocks[1][1]);
-	printf("%s\n", all_blocks[1][2]);
-	printf("%s\n", all_blocks[1][3]);
 	if (buf[l] != 0)
 		ft_putstr("error1\n");
 	else
 		create_field(all_blocks, i);
-}
-
-char ***blocks_memory()
-{
-	int i;
-	int j;
-	char ***all_blocks;
-	char *data;
-	char **ptr;
-
-	i = 0;
-	j = 0;
-	all_blocks = (char ***)malloc(sizeof(char **) * 26 + 
-		sizeof(char *) * 26 * 4 + 
-		sizeof(char) * 26 * 4 * 5);
-	ptr = (char **)(all_blocks + 26);
-	data = (char *)(all_blocks + 26 + 26 * 4);
-	while (i < 26)
-	{
-		all_blocks[i] = ptr + i * 4;
-		j = 0;
-		while (j < 4)
-		{
-			all_blocks[i][j] = data + i * 4 * 5 + j * 5;
-			all_blocks[i][j][4] = 0;
-			j++;
-		}
-		i++;
-	}
-	return (all_blocks);
 }
 
 void read_file(char *argv)
@@ -232,7 +127,7 @@ void read_file(char *argv)
 		{
 			printf ("%s\n", buf);
 			printf ("%d\n", ret);
-			save_blocks(buf, blocks_memory());
+			save_blocks(buf);
 		}
 	close(fd);	
 }
