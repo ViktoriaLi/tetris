@@ -238,7 +238,7 @@ void read_file(char *argv)
 		{
 			printf ("%s\n", buf);
 			printf ("%d\n", ret);
-			if_correct_symb(buf);
+			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
 			save_blocks(buf, blocks_memory());
 		}
