@@ -25,7 +25,36 @@ void if_valid_figures(char *buf)
 	j = 0;
 	k = 0;
 	grids = 4;
-	tmp = grids;;
+	/*while (buf[i] != 0)
+	{
+		j = 0;
+		while (j < 21)
+		{
+			if (buf[i] == '#')
+			{
+				while (buf[i] == '#' && buf[i] != '\n')
+				{
+					i++;
+					grids--;
+				}
+				if (grids != 0)
+				{
+					i += 2;
+					tmp = grids;
+				}
+			}
+			if (grids == tmp)
+			{
+				ft_putstr("error5\n");
+				exit (0);
+			}
+			i++;
+			j++;
+		}
+		i++;
+	}*/
+
+
 	while (buf[i] != 0)
 	{
 		if (buf[i] == '#')
