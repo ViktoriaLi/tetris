@@ -35,15 +35,16 @@ void if_valid_figures(char *buf)
 				i++;
 				grids--;
 			}
-			if (grids == tmp)
-			{
-				ft_putstr("error5\n");
-				exit (0);
-			}
-			
 			if (grids != 0)
-				i += 4;
-			tmp = grids;
+			{
+				i += 2;
+				tmp = grids;
+			}
+		}
+		if (grids == tmp)
+		{
+			ft_putstr("error5\n");
+			exit (0);
 		}
 		i++;
 	}
