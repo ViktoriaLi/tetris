@@ -13,9 +13,51 @@
 #include <stdio.h>
 #include "fillit_header.h"
 
+
+void figure_recognizing(char *buf)
+{
+
+}
+
 void if_valid_figures(char *buf)
 {
-	
+	int i;
+	int j;
+	int k;
+	int grids;
+
+	i = 0;
+	j = 0;
+	k = 0;
+
+	while (buf[i] != 0)
+	{
+		j = 0;
+		grids = 0;
+		while (j < 4)
+		{
+			k = 0;
+			while (k < 4)
+			{
+				while (buf[i] == '#' && k < 5)
+				{
+					grids++;
+					i++;
+					k++;
+					if (grids > 4)
+					{
+						ft_putstr("error5\n");
+						exit (0);
+					}
+				}
+				i++;
+				k++;
+			}
+			i++;
+			j++;
+		}
+		i++;
+	}
 }
 
 void if_correct_symb(char *buf)
@@ -27,7 +69,7 @@ void if_correct_symb(char *buf)
 
 	i = 0;
 	if_empty = 0;
-	while (buf[i] != 0)
+	while (i < 521 && buf[i] != 0)
 	{
 		j = 0;
 		while (j < 4)
@@ -55,9 +97,10 @@ void if_correct_symb(char *buf)
 		}
 		i++;
 	}
-	if (if_empty == 0 || if_empty % 4 != 0)
+	if ((i == 521 && buf[i] != 0) || if_empty == 0 || if_empty % 4 != 0)
 	{
 		ft_putstr("error4\n");
 		exit (0);
 	}
+
 }
