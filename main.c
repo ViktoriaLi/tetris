@@ -168,8 +168,11 @@ void save_blocks(char *buf, char ***all_blocks)
 				k++;
 				l++;
 			}
-			if ((k == 4 && buf[l] != '\n') || k < 4 && (buf[l] != '.' && buf[l] != '#'))
+			if ((k == 4 && buf[l] != '\n') || (k < 4 && buf[l] != '.' && buf[l] != '#'))
+			{
 				ft_putstr("error0\n");
+				exit (0);
+			}
 			l++;
 			j++;
 		}
@@ -185,7 +188,10 @@ void save_blocks(char *buf, char ***all_blocks)
 	printf("%s\n", all_blocks[1][2]);
 	printf("%s\n", all_blocks[1][3]);
 	if (buf[l] != 0)
+	{
 		ft_putstr("error1\n");
+		exit (0);
+	}
 	else
 		create_field(all_blocks, i);
 }
@@ -232,12 +238,14 @@ void read_file(char *argv)
 		{
 			printf ("%s\n", buf);
 			printf ("%d\n", ret);
+			if_correct_symb(buf);
+			if_valid_figures(buf);
 			save_blocks(buf, blocks_memory());
 		}
 	close(fd);	
 }
 
-int if_valid(int argc)
+int if_valid_argv(int argc)
 {
 	if (argc != 2)
 	{
@@ -249,7 +257,7 @@ int if_valid(int argc)
 
 int	main(int argc, char **argv)
 {
-	if (if_valid(argc))
+	if (if_valid_argv(argc))
 		read_file(argv[1]);
 	
 	//exit (0);
