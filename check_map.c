@@ -18,44 +18,45 @@ void if_valid_figures(char *buf)
 	int i;
 	int j;
 	int k;
-	int grids;
-	int tmp;
+	int links;
 
 	i = 0;
 	j = 0;
 	k = 0;
-	grids = 4;
-	/*while (buf[i] != 0)
+	links = 0;
+	printf("%s\n", buf);
+	//printf("%d\n", links);
+	while (buf[i] != 0)
 	{
 		j = 0;
 		while (j < 21)
 		{
 			if (buf[i] == '#')
 			{
-				while (buf[i] == '#' && buf[i] != '\n')
-				{
-					i++;
-					grids--;
-				}
-				if (grids != 0)
-				{
-					i += 2;
-					tmp = grids;
-				}
-			}
-			if (grids == tmp)
-			{
-				ft_putstr("error5\n");
-				exit (0);
+				links++;
+				if (buf[i - 1] == '#')
+					links++;
+				if (buf[i + 1] == '#')
+					links++;
+				if (buf[i - 5] == '#')
+					links++;
+				if (buf[i + 5] == '#')
+					links++;
 			}
 			i++;
 			j++;
 		}
 		i++;
-	}*/
+	}
+	//printf("%d\n", links);
+}
 
-
-	while (buf[i] != 0)
+/*if (grids == tmp)
+			{
+				ft_putstr("error5\n");
+				exit (0);*/
+			
+	/*while (buf[i] != 0)
 	{
 		if (buf[i] == '#')
 		{
@@ -76,7 +77,7 @@ void if_valid_figures(char *buf)
 			exit (0);
 		}
 		i++;
-	}
+	}*/
 
 
 	/*while (buf[i] != 0)
@@ -125,7 +126,7 @@ void if_valid_figures(char *buf)
 		}
 		i++;
 	}*/
-}
+
 
 void if_correct_symb(char *buf, int ret)
 {

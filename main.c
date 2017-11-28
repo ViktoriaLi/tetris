@@ -59,6 +59,7 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 		}
 		l++;
 	}
+}
 	
 
 	/*while (i < quantity && l < numb)
@@ -70,7 +71,9 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 			k++;
 		}
 		k++;
-	}*/
+	}
+	printf("%s\n", *field);
+}*/
 
 
 
@@ -113,8 +116,8 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 		}
 		l++;
 	}*/
-	printf("%s", *field);
-}
+	
+
 
 void create_field(char ***all_blocks, int quantity)
 {
