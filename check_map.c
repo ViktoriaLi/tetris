@@ -18,15 +18,68 @@ void if_valid_figures(char *buf)
 	int i;
 	int j;
 	int k;
-	int links;
+	int if_star;
 
 	i = 0;
 	j = 0;
 	k = 0;
-	links = 0;
+	if_star = 0;
 	printf("%s\n", buf);
 	//printf("%d\n", links);
+	//printf("%d\n", links);
 	while (buf[i] != 0)
+	{
+		j = 0;
+		while (j < 21)
+		{
+			if (buf[i] == '#')
+			{
+				buf[i] = '*';
+				if_star++;
+			}
+			while (if_star > 0)
+			{
+				if_star = 0;
+				if (buf[i] == '*')
+				{
+					if (buf[i + 1] == '#')
+					{
+						buf[i + 1] = '*';
+						if_star++;
+					}
+					if (i > 0 && buf[i - 1] == '#')
+					{
+						buf[i - 1] = '*';
+						if_star++;
+					}
+					if (j > 5 && buf[i - 5] == '#')
+					{
+						buf[i - 5] = '*';
+						if_star++;
+					}
+					if (j < 16 && buf[i + 5] == '#')
+					{
+						buf[i + 5] = '*';
+						if_star++;
+					}
+				}
+			}
+			if (buf[i] == '#')
+			{
+				ft_putstr("error5\n");
+				exit (0);
+			}
+			i++;
+			j++;
+		}
+		i++;
+	}
+}
+
+
+
+/*
+while (buf[i] != 0)
 	{
 		j = 0;
 		while (j < 21)
@@ -48,8 +101,7 @@ void if_valid_figures(char *buf)
 		}
 		i++;
 	}
-	//printf("%d\n", links);
-}
+*/
 
 /*if (grids == tmp)
 			{

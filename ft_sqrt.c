@@ -27,26 +27,5 @@ int	ft_sqrt(int nb)
 		}
 		nb++;
 	}
-	/*while (d <= nb / 2)
-	{
-		if (d * d == nb)
-			return (d);
-		d++;
-		else
-		{
-			d = 1;
-			nb++;
-			while (d <= nb / 2)
-			{
-				if (d * d == nb)
-					{
-						return (d);
-						break ;
-					}
-				d++;
-			}
-
-		}
-	}*/
 	return (0);
 }

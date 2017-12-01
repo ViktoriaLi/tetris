@@ -21,6 +21,6 @@ void	ft_putchar(char c);
 void	ft_putstr(char const *s);
 int		ft_sqrt(int nb);
 void 	if_correct_symb(char *buf, int ret);
-void if_valid_figures(char *buf);
+void 	if_valid_figures(char *buf);
 
 #endif
