@@ -18,15 +18,75 @@ void if_valid_figures(char *buf)
 	int i;
 	int j;
 	int k;
+	int tmp;
 	int if_star;
 
 	i = 0;
 	j = 0;
 	k = 0;
 	if_star = 0;
-	printf("%s\n", buf);
+	printf("9%s\n", buf);
 	//printf("%d\n", links);
 	//printf("%d\n", links);
+	while (buf[i] != 0)
+	{
+		j = 0;
+		while (j < 21 && buf[i] != '#')
+		{
+			i++;
+			j++;
+		}
+		if (buf[i] == '#')
+		{
+			buf[i] = '*';
+			if_star++;
+		}
+		while (if_star > 0 && j < 21)
+		{		
+			if_star = 0;
+			if (buf[i] == '*')
+			{
+				if (buf[i + 1] == '#')
+				{
+					buf[i + 1] = '*';
+					if_star++;
+				}
+				if (i > 0 && buf[i - 1] == '#')
+				{
+					buf[i - 1] = '*';
+					if_star++;
+				}
+				if (j > 5 && buf[i - 5] == '#')
+				{
+					buf[i - 5] = '*';
+					if_star++;
+				}
+				if (j < 16 && buf[i + 5] == '#')
+				{
+					buf[i + 5] = '*';
+					if_star++;
+				}
+				("%s %d\n", "Second", if_star);
+			}
+			j++;
+		}
+		tmp = i;
+		printf ("10%s\n", buf);
+		while (j > 0)
+		{
+			if (buf[tmp] == '#')
+			{
+				ft_putstr("error5\n");
+				exit (0);
+			}
+			j--;
+			tmp--;
+		}
+		i++;
+	}
+}
+
+/*
 	while (buf[i] != 0)
 	{
 		j = 0;
@@ -76,7 +136,7 @@ void if_valid_figures(char *buf)
 	}
 }
 
-
+*/
 
 /*
 while (buf[i] != 0)
@@ -189,7 +249,7 @@ void if_correct_symb(char *buf, int ret)
 
 	i = 0;
 	if_empty = 0;
-	while (i < 521 && buf[i] != 0)
+	while (i < 545 && buf[i] != 0)
 	{
 		j = 0;
 		while (j < 4)

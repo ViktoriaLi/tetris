@@ -13,8 +13,6 @@
 #include <stdio.h>
 #include "fillit_header.h"
 
-#define BUF_SIZE 4096
-
 void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 {
 	int i;
@@ -182,14 +180,14 @@ void save_blocks(char *buf, char ***all_blocks)
 		l++;
 		i++;
 	}
-	printf("%s\n", all_blocks[0][0]);
-	printf("%s\n", all_blocks[0][1]);
-	printf("%s\n", all_blocks[0][2]);
-	printf("%s\n", all_blocks[0][3]);
-	printf("%s\n", all_blocks[1][0]);
-	printf("%s\n", all_blocks[1][1]);
-	printf("%s\n", all_blocks[1][2]);
-	printf("%s\n", all_blocks[1][3]);
+	printf("1%s\n", all_blocks[0][0]);
+	printf("2%s\n", all_blocks[0][1]);
+	printf("3%s\n", all_blocks[0][2]);
+	printf("4%s\n", all_blocks[0][3]);
+	printf("5%s\n", all_blocks[1][0]);
+	printf("6%s\n", all_blocks[1][1]);
+	printf("7%s\n", all_blocks[1][2]);
+	printf("8%s\n", all_blocks[1][3]);
 	if (buf[l] != 0)
 	{
 		ft_putstr("error1\n");
@@ -236,10 +234,10 @@ void read_file(char *argv)
 	char buf[BUF_SIZE];
 
 	fd = open(argv, O_RDONLY);
-	ret = read(fd, &buf, 4096);
+	ret = read(fd, &buf, 600);
 	if (ret > 0)
 		{
-			printf ("%s\n", buf);
+			printf ("0%s\n", buf);
 			printf ("%d\n", ret);
 			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
