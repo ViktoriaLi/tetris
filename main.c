@@ -13,6 +13,8 @@
 #include <stdio.h>
 #include "fillit_header.h"
 
+#define BUF_SIZE 4096
+
 void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 {
 	int i;
@@ -234,10 +236,10 @@ void read_file(char *argv)
 	char buf[BUF_SIZE];
 
 	fd = open(argv, O_RDONLY);
-	ret = read(fd, &buf, 600);
+	ret = read(fd, &buf, 4096);
 	if (ret > 0)
 		{
-			printf ("0%s\n", buf);
+			printf ("%s\n", buf);
 			printf ("%d\n", ret);
 			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
@@ -250,7 +252,7 @@ int if_valid_argv(int argc)
 {
 	if (argc != 2)
 	{
-		ft_putstr("Usage: You should send one file as parameter");
+		ft_putstr("usage: ./a.out filename");
 		exit(1);
 	}
 	return (3);
