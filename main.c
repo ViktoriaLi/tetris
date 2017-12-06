@@ -44,7 +44,7 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 					k = 0;
 					while (k < 4)
 					{
-						if (all_blocks[i][j][k] == '#')
+						if (all_blocks[i][j][k] == '*')
 						{
 							field[l][m] = all_blocks[i][j][k];
 							m++;
@@ -159,19 +159,19 @@ void save_blocks(char *buf, char ***all_blocks)
 
 	i = 0;
 	l = 0;
-	while ((buf[l] == '.' || buf[l] == '#' || buf[l] == '\n') && buf[l] != 0)
+	while ((buf[l] == '.' || buf[l] == '*' || buf[l] == '\n') && buf[l] != 0)
 	{
 		j = 0;
 		while (j < 4)
 		{
 			k = 0;
-			while (k < 4 && (buf[l] == '.' || buf[l] == '#'))
+			while (k < 4 && (buf[l] == '.' || buf[l] == '*'))
 			{
 				all_blocks[i][j][k] = buf[l];
 				k++;
 				l++;
 			}
-			if ((k == 4 && buf[l] != '\n') || (k < 4 && buf[l] != '.' && buf[l] != '#'))
+			if ((k == 4 && buf[l] != '\n') || (k < 4 && buf[l] != '.' && buf[l] != '*'))
 			{
 				ft_putstr("error0\n");
 				exit (0);

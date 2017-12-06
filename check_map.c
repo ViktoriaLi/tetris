@@ -13,34 +13,51 @@
 #include <stdio.h>
 #include "fillit_header.h"
 
-/*void check_symb(buf, i, if_star)
+void check_symb(char **buf, int *i, int *if_star, int *j)
 {
-	printf ("10%s\n", buf);
-	if (buf[i + 1] == '#')
+	char *buf1;
+	int i1;
+	int if_star1;
+	int j1;
+
+	buf1 = *buf;;
+	i1 = *i;
+	if_star1 = *if_star;
+	j1 = *j;
+	printf ("10%s\n", buf1);
+	printf ("10%d\n", *i);
+	printf ("10%d\n", *j);
+	if (buf1[i1 + 1] == '#')
 	{
-		buf[i + 1] = '*';
-		if_star++;
+		buf1[i1 + 1] = '*';
+		if_star1++;
 	}
-	printf ("11%s\n", buf);
-	if (i > 0 && buf[i - 1] == '#')
+	printf ("11%s\n", buf1);
+	if (i1 > 0 && buf1[i1 - 1] == '#')
 	{
-		buf[i - 1] = '*';
-		if_star++;
+		buf1[i1 - 1] = '*';
+		if_star1++;
 	}
-	printf ("12%s\n", buf);
-	if (j >= 5 && buf[i - 5] == '#')
+	printf ("12%s\n", buf1);
+	if (j1 >= 5 && buf1[i1 - 5] == '#')
 	{
-		buf[i - 5] = '*';
-		if_star++;
+		buf1[i1 - 5] = '*';
+		if_star1++;
 	}
-	printf ("13%s\n", buf);
-	if (j <= 16 && buf[i + 5] == '#')
+	printf ("13%s\n", buf1);
+	if (j1 <= 16 && buf1[i1 + 5] == '#')
 	{
-		buf[i + 5] = '*';
-		if_star++;
+		buf1[i1 + 5] = '*';
+		if_star1++;
 	}
-	printf ("14%s\n", buf);
-}*/
+	printf ("14%s\n", buf1);
+	i1++;
+	j1++;
+	*buf = buf1;;
+	*i = i1;
+	*j = j1;
+	*if_star = if_star1;
+}
 
 void if_valid_figures(char *buf)
 {
@@ -51,8 +68,6 @@ void if_valid_figures(char *buf)
 	int if_star;
 
 	i = 0;
-	j = 0;
-	k = 0;
 	printf("9%s\n", buf);
 	while (buf[i] != 0)
 	{
@@ -68,36 +83,7 @@ void if_valid_figures(char *buf)
 		{
 			if_star = 0;
 			if (buf[i] == '*')
-			{
-				//check_symb(&buf, i, if_star);
-				printf ("10%s\n", buf);
-				if (buf[i + 1] == '#')
-				{
-					buf[i + 1] = '*';
-					if_star++;
-				}
-				printf ("11%s\n", buf);
-				if (i > 0 && buf[i - 1] == '#')
-				{
-					buf[i - 1] = '*';
-					if_star++;
-				}
-				printf ("12%s\n", buf);
-				if (j >= 5 && buf[i - 5] == '#')
-				{
-					buf[i - 5] = '*';
-					if_star++;
-				}
-				printf ("13%s\n", buf);
-				if (j <= 16 && buf[i + 5] == '#')
-				{
-					buf[i + 5] = '*';
-					if_star++;
-				}
-				printf ("14%s\n", buf);
-				i++;
-				j++;
-			}
+				check_symb(&buf, &i, &if_star, &j);
 		}
 		printf ("15%s\n", buf);
 		while (j < 20)
@@ -108,35 +94,7 @@ void if_valid_figures(char *buf)
 				exit (0);
 			}
 			if (buf[i] == '*')
-			{
-				printf ("10%s\n", buf);
-				if (buf[i + 1] == '#')
-				{
-					buf[i + 1] = '*';
-					if_star++;
-				}
-				printf ("11%s\n", buf);
-				if (i > 0 && buf[i - 1] == '#')
-				{
-					buf[i - 1] = '*';
-					if_star++;
-				}
-				printf ("12%s\n", buf);
-				if (j >= 5 && buf[i - 5] == '#')
-				{
-					buf[i - 5] = '*';
-					if_star++;
-				}
-				printf ("13%s\n", buf);
-				if (j <= 16 && buf[i + 5] == '#')
-				{
-					buf[i + 5] = '*';
-					if_star++;
-				}
-				printf ("14%s\n", buf);
-				i++;
-				j++;
-			}
+				check_symb(&buf, &i, &if_star, &j);
 			j++;
 			i++;
 		}
