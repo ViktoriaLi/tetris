@@ -28,8 +28,8 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 	k = 0;
 	l = 0;
 	m = 0;
-	printf("%d\n", quantity);
-	printf("%d\n", numb);
+	printf("blocks %d\n", quantity);
+	printf("field size %d\n", numb);
 
 	while (l < numb)
 	{
@@ -134,7 +134,7 @@ void create_field(char ***all_blocks, int quantity)
 		field[i] = (char *)malloc(numb);
 		i++;
 	}
-	//field[i] = NULL;
+	field[i] = NULL;
 	i = 0;
 	j = 0;
 	while (i < numb)
@@ -159,22 +159,17 @@ void save_blocks(char *buf, char ***all_blocks)
 
 	i = 0;
 	l = 0;
-	while ((buf[l] == '.' || buf[l] == '*' || buf[l] == '\n') && buf[l] != 0)
+	while (buf[l] != 0)
 	{
 		j = 0;
 		while (j < 4)
 		{
 			k = 0;
-			while (k < 4 && (buf[l] == '.' || buf[l] == '*'))
+			while (k < 4)
 			{
 				all_blocks[i][j][k] = buf[l];
 				k++;
 				l++;
-			}
-			if ((k == 4 && buf[l] != '\n') || (k < 4 && buf[l] != '.' && buf[l] != '*'))
-			{
-				ft_putstr("error0\n");
-				exit (0);
 			}
 			l++;
 			j++;
@@ -186,10 +181,6 @@ void save_blocks(char *buf, char ***all_blocks)
 	printf("2%s\n", all_blocks[0][1]);
 	printf("3%s\n", all_blocks[0][2]);
 	printf("4%s\n", all_blocks[0][3]);
-	printf("5%s\n", all_blocks[1][0]);
-	printf("6%s\n", all_blocks[1][1]);
-	printf("7%s\n", all_blocks[1][2]);
-	printf("8%s\n", all_blocks[1][3]);
 	if (buf[l] != 0)
 	{
 		ft_putstr("error1\n");
@@ -239,8 +230,8 @@ void read_file(char *argv)
 	ret = read(fd, &buf, 4096);
 	if (ret > 0)
 		{
-			printf ("%s\n", buf);
-			printf ("%d\n", ret);
+			printf ("read bufer\n%s\n", buf);
+			printf ("symbols quantity\n%d\n", ret);
 			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
 			save_blocks(buf, blocks_memory());
