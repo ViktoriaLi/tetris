@@ -83,27 +83,52 @@ void if_valid_figures(char *buf)
 				check_symb(&buf, &i, &if_star, &j);
 
 		}
-		while (j < 20)
+		i = i - j;
+		j = 0;
+		while (j < 21)
 		{
 			if (buf[i] == '*')
 				check_symb(&buf, &i, &if_star, &j);
-				printf ("7\n%s\n", buf);
 			j++;
 			i++;
 		}
-		while (j < 20)
+		printf ("7\n%s\n", buf);
+		tmp = i;
+		while (j > 0)
 		{
-			if (buf[i] == '#')
+			if (buf[tmp] == '#')
 			{
 				printf ("8\n%s\n", buf);
 				ft_putstr("error5\n");
 				exit (0);
 			}
+			j--;
+			tmp--;
+		}
+		/*while (j < 20)
+		{
+			if (buf[i] == '*')
+				check_symb(&buf, &i, &if_star, &j);
 			j++;
 			i++;
 		}
-		printf ("check figures bufer\n%s\n", buf);
-		/*while (j < 21)
+		printf ("7\n%s\n", buf);
+		tmp = i;
+		while (j > 0)
+		{
+			if (buf[tmp] == '#')
+			{
+				printf ("8\n%s\n", buf);
+				ft_putstr("error5\n");
+				exit (0);
+			}
+			j--;
+			tmp--;
+		}*/
+	printf ("check figures bufer\n%s\n", buf);
+		/*i = i - j;
+		j = 0;
+		while (j < 21)
 		{
 			if (buf[i] == '*')
 				check_symb(&buf, &i, &if_star, &j);
@@ -112,8 +137,8 @@ void if_valid_figures(char *buf)
 				ft_putstr("error5\n");
 				exit (0);
 			}
-			j++;
 			i++;
+			j++;
 		}*/
 	i++;
 	}
