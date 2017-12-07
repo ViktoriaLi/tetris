@@ -13,7 +13,7 @@
 #include <stdio.h>
 #include "fillit_header.h"
 
-#define BUF_SIZE 4096
+#define BUF_SIZE 547
 
 void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 {
@@ -60,64 +60,6 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 		l++;
 	}
 }
-	
-
-	/*while (i < quantity && l < numb)
-	{
-		while (k < 4 && all_blocks[i][j][k] == '#')
-		{
-			field[l][m] = all_blocks[i][j][k];
-			m++;
-			k++;
-		}
-		k++;
-	}
-	printf("%s\n", *field);
-}*/
-
-
-
-
-
-	/*while (l < numb)
-	{
-		m = 0;
-		while (m < numb)
-		{
-			while (i < numb)
-			{
-				l = 0;
-				j = 0;
-				while (j < 4)
-				{
-					k = 0;
-					while (k < 4 && j < 4)
-					{
-						if (all_blocks[i][j][k] == '#')
-						{
-							while (all_blocks[i][j][k] == '#')
-							{
-								field[l][m] = all_blocks[i][j][k];
-								m++;
-								k++;
-							}
-							k = 0;
-							l++;
-							j++;
-						}
-						else
-							k++;					
-					}
-					j++;
-				}
-				i++;
-			}
-			m++;
-		}
-		l++;
-	}*/
-	
-
 
 void create_field(char ***all_blocks, int quantity)
 {
@@ -200,8 +142,8 @@ char ***blocks_memory()
 
 	i = 0;
 	j = 0;
-	all_blocks = (char ***)malloc(sizeof(char **) * 26 + 
-		sizeof(char *) * 26 * 4 + 
+	all_blocks = (char ***)malloc(sizeof(char **) * 26 +
+		sizeof(char *) * 26 * 4 +
 		sizeof(char) * 26 * 4 * 5);
 	ptr = (char **)(all_blocks + 26);
 	data = (char *)(all_blocks + 26 + 26 * 4);
@@ -227,16 +169,21 @@ void read_file(char *argv)
 	char buf[BUF_SIZE];
 
 	fd = open(argv, O_RDONLY);
-	ret = read(fd, &buf, 4096);
+	ret = read(fd, &buf, BUF_SIZE);
 	if (ret > 0)
 		{
+			if (buf[BUF_SIZE - 1] != 0)
+			{
+				ft_putstr("errormax\n");
+				exit (0);
+			}
 			printf ("read bufer\n%s\n", buf);
 			printf ("symbols quantity\n%d\n", ret);
 			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
 			save_blocks(buf, blocks_memory());
 		}
-	close(fd);	
+	close(fd);
 }
 
 int if_valid_argv(int argc)
@@ -253,7 +200,7 @@ int	main(int argc, char **argv)
 {
 	if (if_valid_argv(argc))
 		read_file(argv[1]);
-	
+
 	//exit (0);
 }
 /*int	main(int argc, char **argv)
@@ -287,7 +234,7 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
-	
+
 	close(fd);
 	exit (0);
 }*/

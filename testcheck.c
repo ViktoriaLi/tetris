@@ -78,24 +78,21 @@ void if_valid_figures(char *buf)
 		if_star = 1;
 		while (if_star > 0)
 		{
-			if_star--;
+			if_star = 0;
 			if (buf[i] == '*')
 				check_symb(&buf, &i, &if_star, &j);
-
 		}
-		while (j < 20)
+		while (j < 21)
 		{
 			if (buf[i] == '*')
 				check_symb(&buf, &i, &if_star, &j);
-				printf ("7\n%s\n", buf);
 			j++;
 			i++;
 		}
-		while (j < 20)
+		while (j < 21)
 		{
 			if (buf[i] == '#')
 			{
-				printf ("8\n%s\n", buf);
 				ft_putstr("error5\n");
 				exit (0);
 			}
@@ -128,7 +125,7 @@ void if_correct_symb(char *buf, int ret)
 
 	i = 0;
 	if_empty = 0;
-	while (buf[i] != 0 && i < 546)
+	while (buf[i] != 0 && i < 545)
 	{
 		j = 0;
 		while (j < 4)
@@ -156,12 +153,12 @@ void if_correct_symb(char *buf, int ret)
 		}
 		i++;
 	}
-if (/*(buf[i] != 0) || */if_empty == 0 || if_empty % 4 != 0 /*|| if_empty / 4 != (int)(ret / 21)*/)
+	/*if ((i == 521 && buf[i] != 0) || if_empty == 0 || if_empty % 4 != 0 || if_empty / 4 != ret / 20)
 	{
 		printf("%d\n", if_empty);
 		printf("%d\n", ret);
 		ft_putstr("error4\n");
 		exit (0);
-	}
+	}*/
 
 }
