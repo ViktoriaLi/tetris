@@ -85,7 +85,16 @@ void if_valid_figures(char *buf)
 		}
 		i = i - j;
 		j = 0;
-		while (j < 21)
+		while (j < 20)
+		{
+			if (buf[i] == '*')
+				check_symb(&buf, &i, &if_star, &j);
+			j++;
+			i++;
+		}
+		i = i - j;
+		j = 0;
+		while (j < 20)
 		{
 			if (buf[i] == '*')
 				check_symb(&buf, &i, &if_star, &j);
@@ -126,19 +135,18 @@ void if_valid_figures(char *buf)
 			tmp--;
 		}*/
 	printf ("check figures bufer\n%s\n", buf);
-		/*i = i - j;
-		j = 0;
-		while (j < 21)
+		/*tmp = i;
+		while (j)
 		{
-			if (buf[i] == '*')
+			if (buf[tmp] == '*')
 				check_symb(&buf, &i, &if_star, &j);
-			if (buf[i] == '#')
+			if (buf[tmp] == '#')
 			{
 				ft_putstr("error5\n");
 				exit (0);
 			}
-			i++;
-			j++;
+			tmp--;
+			j--;
 		}*/
 	i++;
 	}
