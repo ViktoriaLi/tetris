@@ -15,21 +15,60 @@
 
 #define BUF_SIZE 547
 
-void fill_field(char ***all_blocks, char **field, int quantity, int numb)
+void check_place(char **all_blocks, char **field, int m, int l)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	fiels[l][m]
+	while (all_blocks)
+	{
+		j = 0;
+		while (all_blocks[i][j] != '#' && j < 4)
+			j++;
+		if (all_blocks[i][j] == '#')
+		{
+			if (all_blocks[i][j + 1] == '#')
+			{
+				
+			}
+		}
+		i++;
+	}
+
+
+}
+
+void fill_field(char ***all_blocks, char ***field, int quantity, int numb)
 {
 	int i;
 	int j;
 	int k;
 	int l;
 	int m;
+	int z;
 
 	i = 0;
 	j = 0;
 	k = 0;
 	l = 0;
 	m = 0;
+	z = 0;
 	printf("blocks %d\n", quantity);
 	printf("field size %d\n", numb);
+	while (field)
+	{
+		m = 0;
+		while (field[l][m] != '.' && m < numb)
+		{
+			m++;
+		}
+		check_place(all_blocks[z], &field, m, l);
+		l++;
+	}
+
 
 	while (l < numb)
 	{
@@ -59,7 +98,42 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 		}
 		l++;
 	}
+	printf("%s\n", field[0]);
+	printf("%s\n", field[1]);
+	printf("%s\n", field[2]);
+	printf("%s\n", field[3]);
 }
+
+/*
+while (l < numb)
+{
+	m = 0;
+	while (m < numb)
+	{
+		while (i < numb)
+		{
+			j = 0;
+			while (j < 4)
+			{
+				k = 0;
+				while (k < 4)
+				{
+					if (all_blocks[i][j][k] == '*')
+					{
+						field[l][m] = all_blocks[i][j][k];
+						m++;
+					}
+					k++;
+				}
+				j++;
+			}
+			i++;
+		}
+		m++;
+	}
+	l++;
+}
+*/
 
 void create_field(char ***all_blocks, int quantity)
 {
@@ -73,22 +147,25 @@ void create_field(char ***all_blocks, int quantity)
 	field = (char **)malloc(sizeof(char *) * numb + 1);
 	while (i < numb)
 	{
-		field[i] = (char *)malloc(numb);
+		field[i] = (char *)malloc(numb + 1);
 		i++;
 	}
 	field[i] = NULL;
 	i = 0;
-	j = 0;
 	while (i < numb)
 	{
+		j = 0;
 		while (j < numb)
 		{
 			field[i][j] = '.';
 			j++;
 		}
-		field[i][j] = '\n';
 		i++;
 	}
+	printf("%s\n", field[0]);
+	printf("%s\n", field[1]);
+	printf("%s\n", field[2]);
+	printf("%s\n", field[3]);
 	fill_field(all_blocks, field, quantity, numb);
 }
 
@@ -123,13 +200,11 @@ void save_blocks(char *buf, char ***all_blocks)
 	printf("2%s\n", all_blocks[0][1]);
 	printf("3%s\n", all_blocks[0][2]);
 	printf("4%s\n", all_blocks[0][3]);
-	if (buf[l] != 0)
-	{
-		ft_putstr("error1\n");
-		exit (0);
-	}
-	else
-		create_field(all_blocks, i);
+	printf("1%s\n", all_blocks[1][0]);
+	printf("2%s\n", all_blocks[1][1]);
+	printf("3%s\n", all_blocks[1][2]);
+	printf("4%s\n", all_blocks[1][3]);
+	create_field(all_blocks, i);
 }
 
 char ***blocks_memory()
