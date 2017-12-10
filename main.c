@@ -175,7 +175,7 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 	while (l < numb && z < quantity)
 	{
 		m = 0;
-		while (m <= numb)
+		while (m < numb)
 		{
 			if (field[l][m] == '.')
 			{
@@ -208,7 +208,7 @@ void create_field(char ***all_blocks, int quantity)
 	field = (char **)malloc(sizeof(char *) * numb);
 	while (i < numb)
 	{
-		field[i] = (char *)malloc(numb + 1);
+		field[i] = (char *)malloc(numb);
 		i++;
 	}
 	i = 0;
@@ -223,10 +223,41 @@ void create_field(char ***all_blocks, int quantity)
 		i++;
 	}
 	printf("%s\n", "created field");
-	printf("%s\n", field[0]);
-	printf("%s\n", field[1]);
-	printf("%s\n", field[2]);
+	while (i--)
+		printf("%s\n", field[i]);
 	fill_field(all_blocks, field, quantity, numb);
+}
+
+void figures_normalize(char ****all_blocks, int quantity)
+{
+	int i;
+	int j;
+	int k;
+	int jtmp;
+	int ktmp;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	while (i < quantity)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			k = 0;
+			while (*all_blocks[i][j][k] != '*' && k < 4)
+				k++;
+			if (*all_blocks[i][j][k] == '*')
+			{
+				if (k > 0)
+					ktmp = k;
+				if (j > 0)
+					jtmp = j;
+			}                                                         
+			j++;
+		}
+		i++;
+	}
 }
 
 void save_blocks(char *buf, char ***all_blocks)
@@ -264,6 +295,7 @@ void save_blocks(char *buf, char ***all_blocks)
 	printf("2%s\n", all_blocks[1][1]);
 	printf("3%s\n", all_blocks[1][2]);
 	printf("4%s\n", all_blocks[1][3]);
+	figures_normalize(&all_blocks, i);
 	create_field(all_blocks, i);
 }
 
