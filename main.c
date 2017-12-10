@@ -15,33 +15,146 @@
 
 #define BUF_SIZE 547
 
-void check_place(char **all_blocks, char **field, int m, int l)
+void paste_figure(char **all_blocks, char ***field, int l, int m, int z)
 {
 	int i;
 	int j;
 
 	i = 0;
 	j = 0;
-	fiels[l][m]
-	while (all_blocks)
+	while (i < 4)
 	{
 		j = 0;
-		while (all_blocks[i][j] != '#' && j < 4)
+		while (all_blocks[i][j] != '*' && j < 4)
 			j++;
-		if (all_blocks[i][j] == '#')
+		while (j < 4)
 		{
-			if (all_blocks[i][j + 1] == '#')
+			if (all_blocks[i][j] == '*')
+			 	(*field)[l][m] = all_blocks[i][j] + z;
+			if (j < 3 && all_blocks[i][j + 1] == '*')
+			 	(*field)[l][m + 1] = 'A' + z;
+			if (j > 0 && all_blocks[i][j - 1] == '*')
+				(*field)[l][m - 1] = 'A' + z;
+			if (i < 3 && all_blocks[i + 1][j] == '*')
+				 (*field)[l + 1][m] = 'A' + z;
+			if (i > 0 && all_blocks[i - 1][j] == '*')
+				 (*field)[l - 1][m] = 'A' + z;
+			j++;
+			m++;
+		}
+		i++;
+		l++;
+	}
+}
+
+int check_place(char **all_blocks, char **field, int l, int m)
+{
+	int i;
+	int j;
+	int place;
+
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (all_blocks[i][j] == '*')
 			{
-				
+				place++;
+				if (j < 3 && all_blocks[i][j + 1] == '*' && field[l][m + 1] != '.')
+					place++;
+					//return (0);
+				if (j > 0 && all_blocks[i][j - 1] == '*' && field[l][m - 1] != '.')
+					place++;
+					//return (0);
+				if (i < 3 && all_blocks[i + 1][j] == '*' && field[l + 1][m] != '.')
+					place++;
+						//return (0);
+				if (i > 0 && all_blocks[i - 1][j] == '*' && field[l - 1][m] != '.')
+					place++;
 			}
+			j++;
+			m++;
+		}
+		i++;
+		l++;
+	}
+	printf("place %d\n", place);
+	return (place);
+}
+
+/*void paste_figure(char **all_blocks, char ***field, int l, int m)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (all_blocks[i][j] == '*' && j < 4)
+				j++;
+			if (j < 3 && all_blocks[i][j + 1] == '*')
+			 	(*field)[l][m + 1] = all_blocks[i][j + 1];
+			if (j > 0 && all_blocks[i][j - 1] == '*')
+				(*field)[l][m - 1] = all_blocks[i][j - 1];
+			if (i < 3 && all_blocks[i + 1][j] == '*')
+				 (*field)[l + 1][m] = all_blocks[i + 1][j];
+			if (i > 0 && all_blocks[i - 1][j] == '*')
+				 (*field)[l - 1][m] = all_blocks[i - 1][j];
+			j++;
+			m++;
+		}
+		i++;
+		l++;
+	}
+}
+
+int check_place(char **all_blocks, char **field, int l, int m)
+{
+	int i;
+	int j;
+	//int place;
+
+	i = 0;
+	j = 0;
+	//place = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (all_blocks[i][j] == '*')
+			{
+				//place++;
+				if (j < 3 && all_blocks[i][j + 1] == '*' && field[l][m + 1] != '.')
+					//place++;
+					return (0);
+				if (j > 0 && all_blocks[i][j - 1] == '*' && field[l][m - 1] != '.')
+					//place++;
+					return (0);
+				if (i < 3 && all_blocks[i + 1][j] == '*' && field[l + 1][m] != '.')
+					//place++;
+					return (0);
+				if (i > 0 && all_blocks[i - 1][j] == '*' && field[l - 1][m] != '.')
+					//place++;
+					return (0);
+			}
+			j++;
+			//m++;
 		}
 		i++;
 	}
+	//printf("place %d\n", place);
+	return (1);
+}*/
 
-
-}
-
-void fill_field(char ***all_blocks, char ***field, int quantity, int numb)
+void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 {
 	int i;
 	int j;
@@ -49,6 +162,7 @@ void fill_field(char ***all_blocks, char ***field, int quantity, int numb)
 	int l;
 	int m;
 	int z;
+	int if_place;
 
 	i = 0;
 	j = 0;
@@ -58,82 +172,29 @@ void fill_field(char ***all_blocks, char ***field, int quantity, int numb)
 	z = 0;
 	printf("blocks %d\n", quantity);
 	printf("field size %d\n", numb);
-	while (field)
+	while (l < numb && z < quantity)
 	{
 		m = 0;
-		while (field[l][m] != '.' && m < numb)
+		while (m <= numb)
 		{
-			m++;
-		}
-		check_place(all_blocks[z], &field, m, l);
-		l++;
-	}
-
-
-	while (l < numb)
-	{
-		m = 0;
-		while (m < numb)
-		{
-			while (i < numb)
+			if (field[l][m] == '.')
 			{
-				j = 0;
-				while (j < 4)
+				if_place = check_place(all_blocks[z], field, l, m);
+				if (if_place > 0)
 				{
-					k = 0;
-					while (k < 4)
-					{
-						if (all_blocks[i][j][k] == '*')
-						{
-							field[l][m] = all_blocks[i][j][k];
-							m++;
-						}
-						k++;
-					}
-					j++;
+					paste_figure(all_blocks[z], &field, l, m, z);
+					printf("%s\n", "paste figure");
+					printf("%s\n", field[0]);
+					printf("%s\n", field[1]);
+					printf("%s\n", field[2]);
 				}
-				i++;
+				z++;
 			}
 			m++;
 		}
 		l++;
 	}
-	printf("%s\n", field[0]);
-	printf("%s\n", field[1]);
-	printf("%s\n", field[2]);
-	printf("%s\n", field[3]);
 }
-
-/*
-while (l < numb)
-{
-	m = 0;
-	while (m < numb)
-	{
-		while (i < numb)
-		{
-			j = 0;
-			while (j < 4)
-			{
-				k = 0;
-				while (k < 4)
-				{
-					if (all_blocks[i][j][k] == '*')
-					{
-						field[l][m] = all_blocks[i][j][k];
-						m++;
-					}
-					k++;
-				}
-				j++;
-			}
-			i++;
-		}
-		m++;
-	}
-	l++;
-}
-*/
 
 void create_field(char ***all_blocks, int quantity)
 {
@@ -144,13 +205,12 @@ void create_field(char ***all_blocks, int quantity)
 
 	i = 0;
 	numb = ft_sqrt(quantity * 4);
-	field = (char **)malloc(sizeof(char *) * numb + 1);
+	field = (char **)malloc(sizeof(char *) * numb);
 	while (i < numb)
 	{
 		field[i] = (char *)malloc(numb + 1);
 		i++;
 	}
-	field[i] = NULL;
 	i = 0;
 	while (i < numb)
 	{
@@ -162,10 +222,10 @@ void create_field(char ***all_blocks, int quantity)
 		}
 		i++;
 	}
+	printf("%s\n", "created field");
 	printf("%s\n", field[0]);
 	printf("%s\n", field[1]);
 	printf("%s\n", field[2]);
-	printf("%s\n", field[3]);
 	fill_field(all_blocks, field, quantity, numb);
 }
 
@@ -275,41 +335,4 @@ int	main(int argc, char **argv)
 {
 	if (if_valid_argv(argc))
 		read_file(argv[1]);
-
-	//exit (0);
 }
-/*int	main(int argc, char **argv)
-{
-	int i;
-	int j;
-	int k;
-	int fd;
-	int ret;
-	char buf[BUF_SIZE + 1];
-	char dest[4][4];
-
-	i = 0;
-	k = 0;
-	if (argc != 2)
-	{
-		ft_putstr("Usage: You should send one file as parameter");
-		exit(1);
-	}
-	fd = open(argv[1], O_RDONLY);
-	ret = read(fd, &buf, 4097);
-	if (ret)
-		while (i < 4)
-		{
-			j = 0;
-			while (k < ret)
-			{
-				dest[i][j] = buf[k];
-				j++;
-				k++;
-			}
-			i++;
-		}
-
-	close(fd);
-	exit (0);
-}*/

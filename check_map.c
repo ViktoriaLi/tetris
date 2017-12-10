@@ -99,9 +99,9 @@ void if_valid_figures(char *buf)
 			j++;
 			i++;
 		}
-		printf ("check figures bufer\n%s\n", buf);
 		i++;
 	}
+	printf ("check figures bufer\n%s\n", buf);
 }
 
 /*
