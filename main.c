@@ -228,7 +228,7 @@ void create_field(char ***all_blocks, int quantity)
 	fill_field(all_blocks, field, quantity, numb);
 }
 
-void figures_normalize(char ****all_blocks, int quantity)
+/*void figures_normalize(char ****all_blocks, int quantity)
 {
 	int i;
 	int j;
@@ -253,87 +253,20 @@ void figures_normalize(char ****all_blocks, int quantity)
 					ktmp = k;
 				if (j > 0)
 					jtmp = j;
-			}                                                         
-			j++;
-		}
-		i++;
-	}
-}
-
-void save_blocks(char *buf, char ***all_blocks)
-{
-	int i;
-	int j;
-	int k;
-	int l;
-
-	i = 0;
-	l = 0;
-	while (buf[l] != 0)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			k = 0;
-			while (k < 4)
-			{
-				all_blocks[i][j][k] = buf[l];
-				k++;
-				l++;
 			}
-			l++;
-			j++;
-		}
-		l++;
-		i++;
-	}
-	printf("1%s\n", all_blocks[0][0]);
-	printf("2%s\n", all_blocks[0][1]);
-	printf("3%s\n", all_blocks[0][2]);
-	printf("4%s\n", all_blocks[0][3]);
-	printf("1%s\n", all_blocks[1][0]);
-	printf("2%s\n", all_blocks[1][1]);
-	printf("3%s\n", all_blocks[1][2]);
-	printf("4%s\n", all_blocks[1][3]);
-	figures_normalize(&all_blocks, i);
-	create_field(all_blocks, i);
-}
-
-char ***blocks_memory()
-{
-	int i;
-	int j;
-	char ***all_blocks;
-	char *data;
-	char **ptr;
-
-	i = 0;
-	j = 0;
-	all_blocks = (char ***)malloc(sizeof(char **) * 26 +
-		sizeof(char *) * 26 * 4 +
-		sizeof(char) * 26 * 4 * 5);
-	ptr = (char **)(all_blocks + 26);
-	data = (char *)(all_blocks + 26 + 26 * 4);
-	while (i < 26)
-	{
-		all_blocks[i] = ptr + i * 4;
-		j = 0;
-		while (j < 4)
-		{
-			all_blocks[i][j] = data + i * 4 * 5 + j * 5;
-			all_blocks[i][j][4] = 0;
 			j++;
 		}
 		i++;
 	}
-	return (all_blocks);
-}
+}*/
 
 void read_file(char *argv)
 {
 	int fd;
 	int ret;
 	char buf[BUF_SIZE];
+	char ***all_blocks;
+	int quantity;
 
 	fd = open(argv, O_RDONLY);
 	ret = read(fd, &buf, BUF_SIZE);
@@ -348,7 +281,9 @@ void read_file(char *argv)
 			printf ("symbols quantity\n%d\n", ret);
 			if_correct_symb(buf, ret);
 			if_valid_figures(buf);
-			save_blocks(buf, blocks_memory());
+			all_blocks = multi_arr_mem(26, 4, 5);
+			quantity = to_multi_arr(buf, &all_blocks, 4, 4);
+			create_field(all_blocks, quantity);
 		}
 	close(fd);
 }

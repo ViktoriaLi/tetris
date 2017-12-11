@@ -104,68 +104,6 @@ void if_valid_figures(char *buf)
 	printf ("check figures bufer\n%s\n", buf);
 }
 
-/*
-void if_valid_figures(char *buf)
-{
-	int i;
-	int j;
-	int tmp;
-	int if_star;
-
-	i = 0;
-	while (buf[i] != 0)
-	{
-		j = 0;
-		while (buf[i] != '#')
-		{
-			i++;
-			j++;
-		}
-		buf[i] = '*';
-		if_star = 1;
-		while (if_star > 0)
-		{
-			if_star--;
-			if (buf[i] == '*')
-				check_symb(&buf, &i, &if_star, &j);
-		}
-		//i = i - j;
-		//j = 0;
-		while (j < 20)
-		{
-			if (buf[i] == '*')
-				check_symb(&buf, &i, &if_star, &j);
-			j++;
-			i++;
-		}
-		i = i - j;
-		j = 0;
-		while (j < 20)
-		{
-			if (buf[i] == '*')
-				check_symb(&buf, &i, &if_star, &j);
-			j++;
-			i++;
-		}
-		printf ("7\n%s\n", buf);
-		tmp = i;
-		while (j > 0)
-		{
-			if (buf[tmp] == '#')
-			{
-				printf ("8\n%s\n", buf);
-				ft_putstr("error5\n");
-				exit (0);
-			}
-			j--;
-			tmp--;
-		}
-		printf ("check figures bufer\n%s\n", buf);
-		i++;
-	}
-}
-*/
-
 void if_correct_symb(char *buf, int ret)
 {
 	int i;
@@ -203,7 +141,7 @@ void if_correct_symb(char *buf, int ret)
 		}
 		i++;
 	}
-if (/*(buf[i] != 0) || */if_empty == 0 || if_empty % 4 != 0 /*|| if_empty / 4 != (int)(ret / 21)*/)
+if (if_empty == 0 || if_empty % 4 != 0)
 	{
 		printf("%d\n", if_empty);
 		printf("%d\n", ret);
