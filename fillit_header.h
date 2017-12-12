@@ -25,4 +25,6 @@ void 	if_valid_figures(char *buf);
 void  find_links(char **buf, int *i, int *if_star, int *j);
 char	***multi_arr_mem(int n, int r, int w);
 int   to_multi_arr(char *buf, char ****multi_arr, int strings, int symbols);
+char **two_dim_arr_mem(char **field, int numb, char c);
+
 #endif

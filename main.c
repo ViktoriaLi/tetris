@@ -205,6 +205,23 @@ void create_field(char ***all_blocks, int quantity)
 
 	i = 0;
 	numb = ft_sqrt(quantity * 4);
+	field = two_dim_arr_mem(field, numb, '.');
+	printf("%s\n", field[0]);
+	printf("%s\n", field[1]);
+	printf("%s\n", field[2]);
+
+	fill_field(all_blocks, field, quantity, numb);
+}
+
+/*void create_field(char ***all_blocks, int quantity)
+{
+	int i;
+	int j;
+	int numb;
+	char **field;
+
+	i = 0;
+	numb = ft_sqrt(quantity * 4);
 	field = (char **)malloc(sizeof(char *) * numb);
 	while (i < numb)
 	{
@@ -226,7 +243,7 @@ void create_field(char ***all_blocks, int quantity)
 	while (i--)
 		printf("%s\n", field[i]);
 	fill_field(all_blocks, field, quantity, numb);
-}
+}*/
 
 /*void figures_normalize(char ****all_blocks, int quantity)
 {
@@ -283,6 +300,13 @@ void read_file(char *argv)
 			if_valid_figures(buf);
 			all_blocks = multi_arr_mem(26, 4, 5);
 			quantity = to_multi_arr(buf, &all_blocks, 4, 4);
+			printf("all%s\n", all_blocks[0][0]);
+			printf("all%s\n", all_blocks[0][1]);
+			printf("all%s\n", all_blocks[0][2]);
+			printf("all%s\n", all_blocks[0][3]);
+			//free_multi_mem(all_blocks, 26, 4);
+			//printf("free%s\n", **all_blocks);
+
 			create_field(all_blocks, quantity);
 		}
 	close(fd);
