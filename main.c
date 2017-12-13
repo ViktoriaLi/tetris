@@ -30,17 +30,19 @@ void paste_figure(char **all_blocks, char ***field, int l, int m, int z)
 		while (j < 4)
 		{
 			if (all_blocks[i][j] == '*')
-			 	(*field)[l][m] = all_blocks[i][j] + z;
-			if (j < 3 && all_blocks[i][j + 1] == '*')
-			 	(*field)[l][m + 1] = 'A' + z;
-			if (j > 0 && all_blocks[i][j - 1] == '*')
-				(*field)[l][m - 1] = 'A' + z;
-			if (i < 3 && all_blocks[i + 1][j] == '*')
-				 (*field)[l + 1][m] = 'A' + z;
-			if (i > 0 && all_blocks[i - 1][j] == '*')
-				 (*field)[l - 1][m] = 'A' + z;
+			{
+				 	(*field)[l][m] = 'A' + z;
+					if (j < 3 && all_blocks[i][j + 1] == '*')
+			 		(*field)[l][m + 1] = 'A' + z;
+					if (j > 0 && all_blocks[i][j - 1] == '*')
+					(*field)[l][m - 1] = 'A' + z;
+					if (i < 3 && all_blocks[i + 1][j] == '*')
+				 	(*field)[l + 1][m] = 'A' + z;
+					if (i > 0 && all_blocks[i - 1][j] == '*')
+				 	(*field)[l - 1][m] = 'A' + z;
+				}
 			j++;
-			m++;
+			//m++;
 		}
 		i++;
 		l++;
@@ -62,7 +64,7 @@ int check_place(char **all_blocks, char **field, int l, int m)
 		{
 			if (all_blocks[i][j] == '*')
 			{
-				place++;
+				//place++;
 				if (j < 3 && all_blocks[i][j + 1] == '*' && field[l][m + 1] != '.')
 					place++;
 					//return (0);
@@ -74,9 +76,10 @@ int check_place(char **all_blocks, char **field, int l, int m)
 						//return (0);
 				if (i > 0 && all_blocks[i - 1][j] == '*' && field[l - 1][m] != '.')
 					place++;
+				//m++;
 			}
 			j++;
-			m++;
+			//m++;
 		}
 		i++;
 		l++;
@@ -172,38 +175,92 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 	z = 0;
 	printf("blocks %d\n", quantity);
 	printf("field size %d\n", numb);
-	while (l < numb && z < quantity)
+	while (z < quantity)
+	{
+		//l = 0;
+		while (l < numb)
+		{
+			m = 0;
+			while (m < numb)
+			{
+				if (field[l][m] == '.')
+				{
+					if (check_place(all_blocks[z], field, l, m) > 2)
+					{
+						paste_figure(all_blocks[z], &field, l, m, z);
+						printf("%s\n", "paste figure");
+						printf("%s\n", field[0]);
+						printf("%s\n", field[1]);
+						printf("%s\n", field[2]);
+						m = numb;
+						l = numb;
+					}
+				}
+				m++;
+			}
+			l++;
+		}
+		z++;
+	}
+}
+
+	/*while (l < numb)
 	{
 		m = 0;
 		while (m < numb)
 		{
 			if (field[l][m] == '.')
 			{
-				if_place = check_place(all_blocks[z], field, l, m);
-				if (if_place > 0)
-				{
-					paste_figure(all_blocks[z], &field, l, m, z);
-					printf("%s\n", "paste figure");
-					printf("%s\n", field[0]);
-					printf("%s\n", field[1]);
-					printf("%s\n", field[2]);
+					while(z < quantity)
+					{
+							if (check_place(all_blocks[z], field, l, m) > 2)
+							{
+								paste_figure(all_blocks[z], &field, l, m, z);
+								printf("%s\n", "paste figure");
+								printf("%s\n", field[0]);
+								printf("%s\n", field[1]);
+								printf("%s\n", field[2]);
+							}
+							z++;
+					}
 				}
-				z++;
-			}
 			m++;
 		}
 		l++;
 	}
-}
+}*/
 
+/*
+while (l < numb)
+{
+	m = 0;
+	while (m < numb)
+	{
+		if (field[l][m] == '.')
+		{
+				while(z < quantity)
+				{
+						if (check_place(all_blocks[z], field, l, m) > 2)
+						{
+							paste_figure(all_blocks[z], &field, l, m, z);
+							printf("%s\n", "paste figure");
+							printf("%s\n", field[0]);
+							printf("%s\n", field[1]);
+							printf("%s\n", field[2]);
+						}
+						z++;
+				}
+			}
+		m++;
+	}
+	l++;
+}
+*/
 void create_field(char ***all_blocks, int quantity)
 {
-	int i;
-	int j;
 	int numb;
 	char **field;
 
-	i = 0;
 	numb = ft_sqrt(quantity * 4);
 	field = two_dim_arr_mem(field, numb, '.');
 	printf("%s\n", field[0]);
@@ -212,38 +269,6 @@ void create_field(char ***all_blocks, int quantity)
 
 	fill_field(all_blocks, field, quantity, numb);
 }
-
-/*void create_field(char ***all_blocks, int quantity)
-{
-	int i;
-	int j;
-	int numb;
-	char **field;
-
-	i = 0;
-	numb = ft_sqrt(quantity * 4);
-	field = (char **)malloc(sizeof(char *) * numb);
-	while (i < numb)
-	{
-		field[i] = (char *)malloc(numb);
-		i++;
-	}
-	i = 0;
-	while (i < numb)
-	{
-		j = 0;
-		while (j < numb)
-		{
-			field[i][j] = '.';
-			j++;
-		}
-		i++;
-	}
-	printf("%s\n", "created field");
-	while (i--)
-		printf("%s\n", field[i]);
-	fill_field(all_blocks, field, quantity, numb);
-}*/
 
 /*void figures_normalize(char ****all_blocks, int quantity)
 {
@@ -304,9 +329,6 @@ void read_file(char *argv)
 			printf("all%s\n", all_blocks[0][1]);
 			printf("all%s\n", all_blocks[0][2]);
 			printf("all%s\n", all_blocks[0][3]);
-			//free_multi_mem(all_blocks, 26, 4);
-			//printf("free%s\n", **all_blocks);
-
 			create_field(all_blocks, quantity);
 		}
 	close(fd);
