@@ -17,6 +17,12 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+typedef struct	s_coordinate
+{
+	int x;
+	int y;
+}				t_coordinate;
+
 void	ft_putchar(char c);
 void	ft_putstr(char const *s);
 int		ft_sqrt(int nb);

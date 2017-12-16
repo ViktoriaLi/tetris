@@ -184,7 +184,7 @@ void create_field(char ***all_blocks, int quantity)
 	fill_field(0, all_blocks, &field, quantity, numb);
 }
 
-/*void figures_normalize(char ****all_blocks, int quantity)
+void figures_normalize(char ****all_blocks, int quantity)
 {
 	int i;
 	int j;
@@ -214,7 +214,7 @@ void create_field(char ***all_blocks, int quantity)
 		}
 		i++;
 	}
-}*/
+}
 
 void read_file(char *argv)
 {
@@ -243,6 +243,7 @@ void read_file(char *argv)
 			printf("all%s\n", all_blocks[0][1]);
 			printf("all%s\n", all_blocks[0][2]);
 			printf("all%s\n", all_blocks[0][3]);
+			figures_normalize(&all_blocks, quantity);
 			create_field(all_blocks, quantity);
 		}
 	close(fd);

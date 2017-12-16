@@ -88,75 +88,6 @@ int check_place(char **all_blocks, char **field, int l, int m)
 	return (place);
 }
 
-/*void paste_figure(char **all_blocks, char ***field, int l, int m)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (all_blocks[i][j] == '*' && j < 4)
-				j++;
-			if (j < 3 && all_blocks[i][j + 1] == '*')
-			 	(*field)[l][m + 1] = all_blocks[i][j + 1];
-			if (j > 0 && all_blocks[i][j - 1] == '*')
-				(*field)[l][m - 1] = all_blocks[i][j - 1];
-			if (i < 3 && all_blocks[i + 1][j] == '*')
-				 (*field)[l + 1][m] = all_blocks[i + 1][j];
-			if (i > 0 && all_blocks[i - 1][j] == '*')
-				 (*field)[l - 1][m] = all_blocks[i - 1][j];
-			j++;
-			m++;
-		}
-		i++;
-		l++;
-	}
-}
-
-int check_place(char **all_blocks, char **field, int l, int m)
-{
-	int i;
-	int j;
-	//int place;
-
-	i = 0;
-	j = 0;
-	//place = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			if (all_blocks[i][j] == '*')
-			{
-				//place++;
-				if (j < 3 && all_blocks[i][j + 1] == '*' && field[l][m + 1] != '.')
-					//place++;
-					return (0);
-				if (j > 0 && all_blocks[i][j - 1] == '*' && field[l][m - 1] != '.')
-					//place++;
-					return (0);
-				if (i < 3 && all_blocks[i + 1][j] == '*' && field[l + 1][m] != '.')
-					//place++;
-					return (0);
-				if (i > 0 && all_blocks[i - 1][j] == '*' && field[l - 1][m] != '.')
-					//place++;
-					return (0);
-			}
-			j++;
-			//m++;
-		}
-		i++;
-	}
-	//printf("place %d\n", place);
-	return (1);
-}*/
-
 void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 {
 	int i;
@@ -201,63 +132,6 @@ void fill_field(char ***all_blocks, char **field, int quantity, int numb)
 	}
 }
 
-	/*while (z < quantity)
-	{
-		//l = 0;
-		while (l < numb)
-		{
-			m = 0;
-			while (m < numb)
-			{
-				if (field[l][m] == '.')
-				{
-					if (check_place(all_blocks[z], field, l, m) > 2)
-					{
-						paste_figure(all_blocks[z], &field, l, m, z);
-						printf("%s\n", "paste figure");
-						printf("%s\n", field[0]);
-						printf("%s\n", field[1]);
-						printf("%s\n", field[2]);
-						m = numb;
-						l = numb;
-					}
-				}
-				m++;
-			}
-			l++;
-		}
-		z++;
-	}
-}*/
-
-
-
-/*
-while (l < numb)
-{
-	m = 0;
-	while (m < numb)
-	{
-		if (field[l][m] == '.')
-		{
-				while(z < quantity)
-				{
-						if (check_place(all_blocks[z], field, l, m) > 2)
-						{
-							paste_figure(all_blocks[z], &field, l, m, z);
-							printf("%s\n", "paste figure");
-							printf("%s\n", field[0]);
-							printf("%s\n", field[1]);
-							printf("%s\n", field[2]);
-						}
-						z++;
-				}
-			}
-		m++;
-	}
-	l++;
-}
-*/
 void create_field(char ***all_blocks, int quantity)
 {
 	int numb;
@@ -272,37 +146,63 @@ void create_field(char ***all_blocks, int quantity)
 	fill_field(all_blocks, field, quantity, numb);
 }
 
-/*void figures_normalize(char ****all_blocks, int quantity)
+void	figures_normalize(t_coordinate c[4])
+{
+	int minx;
+	int miny;
+	int i;
+
+	i = 0;
+	minx = 3;
+	miny = 3;
+	while (i < 4)
+	{
+		if (c[i].x < minx)
+			minx = c[i].x;
+		if (c[i].y < miny)
+			miny = c[i].y;
+		i++;
+	}
+	i = 0;
+	while (i < 4)
+	{
+		c[i].x = c[i].x - minx;
+		c[i].y = c[i].y - miny;
+		i++;
+	}
+}
+
+void save_coordinates(char ***all_blocks, int quantity)
 {
 	int i;
 	int j;
 	int k;
-	int jtmp;
-	int ktmp;
+	int grid;
+	t_coordinate c[4];
 
 	i = 0;
-	j = 0;
-	k = 0;
 	while (i < quantity)
 	{
 		j = 0;
 		while (j < 4)
 		{
 			k = 0;
-			while (*all_blocks[i][j][k] != '*' && k < 4)
-				k++;
-			if (*all_blocks[i][j][k] == '*')
+			grid = 0;
+			while (k < 4)
 			{
-				if (k > 0)
-					ktmp = k;
-				if (j > 0)
-					jtmp = j;
+				if (all_blocks[i][j][k] == '*')
+					{
+						c[grid].x = k;
+						c[grid].y = j;
+						grid++;
+					}
+				k++;
 			}
 			j++;
 		}
 		i++;
 	}
-}*/
+}
 
 void read_file(char *argv)
 {
@@ -327,6 +227,7 @@ void read_file(char *argv)
 			if_valid_figures(buf);
 			all_blocks = multi_arr_mem(26, 4, 5);
 			quantity = to_multi_arr(buf, &all_blocks, 4, 4);
+			save_coordinates(all_blocks, quantity);
 			printf("all%s\n", all_blocks[0][0]);
 			printf("all%s\n", all_blocks[0][1]);
 			printf("all%s\n", all_blocks[0][2]);
