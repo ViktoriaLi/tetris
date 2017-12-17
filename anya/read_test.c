@@ -137,14 +137,10 @@ int		main(int argc, char **argv)
 	int i = 0;
 	while (map[i])
 		printf("%s\n", map[i++]);
-	/*while(fill_field(0, map, vika, blocks, num) != 2)
-		{
-			map = create_field(++num);
-		}*/
-		fill_field(0, map, vika, blocks, num);
+	while(fill_field(&map, vika, blocks, num) != 1)
+		create_field(++num);
 
-	// printvika(vika);
-	// printf("content_size %zu\n", vika->content_size);
+
 	if (close(fd) == -1)
 		return (1);
 	return (0);

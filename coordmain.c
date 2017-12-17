@@ -146,62 +146,142 @@ void create_field(char ***all_blocks, int quantity)
 	fill_field(all_blocks, field, quantity, numb);
 }
 
-void	figures_normalize(t_coordinate c[4])
+/*
+void	figures_normalize(t_coordinate ***all_coord, int quantity)
 {
 	int minx;
 	int miny;
 	int i;
+	int grid;
+
+	i = 0;
+	minx = 3;
+	miny = 3;
+	while (i < quantity)
+	{
+		grid = 0;
+		while (grid < 4)
+		{
+			if ((*all_coord)[i][grid].x < minx)
+				minx = (*all_coord)[i][grid].x;
+			if ((*all_coord)[i][grid].y < miny)
+				miny = (*all_coord)[i][grid].y;
+			grid++;
+		}
+		grid = 0;
+		while (grid < 4)
+		{
+			(*all_coord)[i][grid].x = (*all_coord)[i][grid].x - minx;
+			(*all_coord)[i][grid].y = (*all_coord)[i][grid].y - miny;
+			grid++;
+		}
+		i++;
+	}
+}*/
+
+void	normalize_figures(char ***all_blocks, t_coordinate *all_coord)
+{
+	int i;
+	int j;
+	int k;
+
+	i = 0;
+	j = 0;
+	k = 0;
+	while (i < 4)
+	{
+		while (j < 4)
+		{
+			if (i == all_coord[j].y && j == all_coord[j].x)
+					(*all_blocks)[i][j] = '#';
+			else
+				(*all_blocks)[i][j] = '.';
+			k++;
+			j++;
+		}
+		i++;
+	}
+}
+void	change_coordinates(t_coordinate *all_coord)
+{
+	int minx;
+	int miny;
+	int i;
+	int grid;
 
 	i = 0;
 	minx = 3;
 	miny = 3;
 	while (i < 4)
 	{
-		if (c[i].x < minx)
-			minx = c[i].x;
-		if (c[i].y < miny)
-			miny = c[i].y;
+		if (all_coord[i].x < minx)
+			minx = all_coord[i].x;
+		if (all_coord[i].y < miny)
+			miny = all_coord[i].y;
 		i++;
 	}
 	i = 0;
 	while (i < 4)
 	{
-		c[i].x = c[i].x - minx;
-		c[i].y = c[i].y - miny;
+		all_coord[i].x = all_coord[i].x - minx;
+		all_coord[i].y = all_coord[i].y - miny;
 		i++;
 	}
 }
 
-void save_coordinates(char ***all_blocks, int quantity)
+t_coordinate **save_coordinates(char ***all_blocks, int quantity)
 {
 	int i;
 	int j;
 	int k;
 	int grid;
-	t_coordinate c[4];
-
+	int t;
+	t = 0;
+	t_coordinate **all_coord;
+	all_coord = (t_coordinate **)malloc(sizeof(t_coordinate *) * quantity);
+	while (t < quantity)
+	{
+		all_coord[t] = (t_coordinate *)malloc(sizeof(t_coordinate) * 4);
+		t++;
+	}
 	i = 0;
 	while (i < quantity)
 	{
 		j = 0;
+		grid = 0;
 		while (j < 4)
 		{
 			k = 0;
-			grid = 0;
 			while (k < 4)
 			{
 				if (all_blocks[i][j][k] == '*')
 					{
-						c[grid].x = k;
-						c[grid].y = j;
+						all_coord[i][grid].x = k;
+						all_coord[i][grid].y = j;
 						grid++;
 					}
 				k++;
 			}
 			j++;
 		}
+		change_coordinates(all_coord[i]);
+		normalize_figures(&all_blocks[i], all_coord[i]);
 		i++;
 	}
+
+	i = 0;
+	grid = 0;
+	while (i < quantity)
+	{
+		grid = 0;
+		while (grid < 4)
+		{
+			printf("%d %d\n", all_coord[i][grid].y, all_coord[i][grid].x);
+			grid++;
+		}
+		i++;
+	}
+	return (all_coord);
 }
 
 void read_file(char *argv)
@@ -211,6 +291,7 @@ void read_file(char *argv)
 	char buf[BUF_SIZE];
 	char ***all_blocks;
 	int quantity;
+	t_coordinate **all_coord;
 
 	fd = open(argv, O_RDONLY);
 	ret = read(fd, &buf, BUF_SIZE);
@@ -227,11 +308,16 @@ void read_file(char *argv)
 			if_valid_figures(buf);
 			all_blocks = multi_arr_mem(26, 4, 5);
 			quantity = to_multi_arr(buf, &all_blocks, 4, 4);
-			save_coordinates(all_blocks, quantity);
+			all_coord = save_coordinates(all_blocks, quantity);
+			//figures_normalize(all_coord, quantity);
 			printf("all%s\n", all_blocks[0][0]);
 			printf("all%s\n", all_blocks[0][1]);
 			printf("all%s\n", all_blocks[0][2]);
 			printf("all%s\n", all_blocks[0][3]);
+			printf("all%s\n", all_blocks[1][0]);
+			printf("all%s\n", all_blocks[1][1]);
+			printf("all%s\n", all_blocks[1][2]);
+			printf("all%s\n", all_blocks[1][3]);
 			create_field(all_blocks, quantity);
 		}
 	close(fd);

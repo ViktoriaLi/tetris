@@ -129,12 +129,13 @@ void remove_figure(char ***field, t_list *list, int i, int j, int blocks)
 	}
 }
 
-int		fill_field(int i, char **field, t_list *list, int blocks, int num)
+/*int		fill_field(int i, char **field, t_list *list, int blocks, int num)
 {
 	//int i;
 	int j;
 	int z;
 	int result;
+	int check;
 	printf("%d\n", 1);
 	//i = 0;
 	//z = 0;
@@ -148,27 +149,73 @@ int		fill_field(int i, char **field, t_list *list, int blocks, int num)
 				if (list->content_size == blocks - 1)
 					result = 1;
 		}
-		else
+		if (field[i][j] == '.' && check_in_field(field, list, i, j, num) == -1)
 		{
-				if (check_in_field(field, list, i, j, num) == -1)
-				{
-					//return (2);
-					free_mem(field, num);
-					field = create_field(num + 1);
-					num++;
-					i = 0;
-					fill_field(i, field, list, blocks, num);
-				}
-				else
-					if (!(result = fill_field(i + 1, field, list->next, blocks, num)))
-						remove_figure(&field, list, i, j, blocks);
+			//return (2);
+			free_mem(field, num);
+			field = create_field(num + 1);
+			num++;
+			i = 0;
+			j = 0;
+			//fill_field(i, field, list, blocks, num);
+			continue;
 		}
+		if (field[i][j] == '.' && !(result = fill_field(i + 1, field, list, blocks, num)))
+				remove_figure(&field, list, i, j, blocks);
 		if (result)
       break;
-		++j;
+		j++;
 	}
 	return (result);
+}*/
+
+int		fill_field(char ***field, t_list *list, int blocks, int num)
+{
+	int i;
+	int j;
+	int z;
+	int result;
+	t_list *tmp;
+
+	i = 0;
+	z = 0;
+	tmp = list;
+	result = 0;
+	while (i < num)
+	{
+		j = 0;
+		while (j < num)
+		{
+			if (check_in_field(*field, list, i, j, num) == 1)
+			{
+					add_elem_in_field(field, list, i, j, blocks);
+					//printvika(list);
+					if (list->content_size == blocks - 1)
+						return (1);
+				//	else
+					//	list = list->next;
+			}
+			if (check_in_field(*field, list, i, j, num) == -1)
+			{
+				//return (2);
+				/*free_mem(field, num);
+				field = create_field(num + 1);
+				num++;
+				i = 0;
+				j = 0;
+				list = tmp;
+				continue;*/
+				return (0);
+			}
+			if (!(result = fill_field(field, list->next, blocks, num)))
+					remove_figure(field, list, i, j, blocks);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }
+
 
 void add_elem_in_field(char ***field, t_list *list, int i, int j, int blocks)
 {

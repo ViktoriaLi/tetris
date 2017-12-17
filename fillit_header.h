@@ -32,5 +32,8 @@ void  find_links(char **buf, int *i, int *if_star, int *j);
 char	***multi_arr_mem(int n, int r, int w);
 int   to_multi_arr(char *buf, char ****multi_arr, int strings, int symbols);
 char **two_dim_arr_mem(char **field, int numb, char c);
+t_coordinate **save_coordinates(char ***all_blocks, int quantity);
+void	change_coordinates(t_coordinate *all_coord);
+void	normalize_figures(char ***all_blocks, t_coordinate *all_coord);
 
 #endif

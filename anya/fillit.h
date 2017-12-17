@@ -44,7 +44,7 @@ int	ft_sqrt(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strnew(size_t size);
 void	ft_putstr(char const *s);
-int		fill_field(int i, char **field, t_list *list, int blocks, int num);
+int		fill_field(char ***field, t_list *list, int blocks, int num);
 void remove_figure(char ***field, t_list *list, int i, int j, int blocks);
 
 #endif

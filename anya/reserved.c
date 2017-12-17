@@ -130,3 +130,78 @@ void add_elem_in_field(char ***field, t_list *list, int i, int j)
 	while (field)
 		printf("%s\n", (*field)[k++]);
 }
+
+
+
+
+
+/*
+int		fill_field(int i, char **field, t_list *list, int blocks, int num)
+{
+	//int i;
+	int j;
+	int z;
+	int result;
+	int check;
+	printf("%d\n", 1);
+	//i = 0;
+	//z = 0;
+	result = 0;
+	while (j < num)
+	{
+		if (field[i][j] == '.' && check_in_field(field, list, i, j, num) == 1)
+		{
+				add_elem_in_field(&field, list, i, j, blocks);
+				//printvika(list);
+				if (list->content_size == blocks - 1)
+					result = 1;
+		}
+		if (field[i][j] == '.' && check_in_field(field, list, i, j, num) == -1)
+		{
+			//return (2);
+			free_mem(field, num);
+			field = create_field(num + 1);
+			num++;
+			i = 0;
+			j = 0;
+			//fill_field(i, field, list, blocks, num);
+			continue;
+		}
+		if (field[i][j] == '.' && !(result = fill_field(i + 1, field, list, blocks, num)))
+				remove_figure(&field, list, i, j, blocks);
+		if (result)
+      break;
+		j++;
+	}
+	return (result);
+}
+
+int		main(int argc, char **argv)
+{
+	int		fd;
+	t_list	*vika;
+	char	*buf;
+	int		blocks;
+	char **map;
+	int		num;
+
+	(void)argc;
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (1);
+	buf = read_file(fd);
+	vika = coordinate(buf, &blocks);
+	num = count_blocks(blocks);
+	map = create_field(num);
+	int i = 0;
+	while (map[i])
+		printf("%s\n", map[i++]);
+		while(!fill_field(0, map, vika, blocks, num))
+			;
+
+	if (close(fd) == -1)
+		return (1);
+	return (0);
+}
+
+*/
