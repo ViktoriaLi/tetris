@@ -132,8 +132,16 @@ int		main(int argc, char **argv)
 		return (1);
 	buf = read_file(fd);
 	vika = coordinate(buf, &blocks);
-	map = create_field((num = count_blocks(blocks)));
-	fill_field(map, vika, blocks, num);
+	num = count_blocks(blocks);
+	map = create_field(num);
+	int i = 0;
+	while (map[i])
+		printf("%s\n", map[i++]);
+	/*while(fill_field(0, map, vika, blocks, num) != 2)
+		{
+			map = create_field(++num);
+		}*/
+		fill_field(0, map, vika, blocks, num);
 
 	// printvika(vika);
 	// printf("content_size %zu\n", vika->content_size);

@@ -37,14 +37,14 @@ char	*read_file(int fd);
 int		check_figures(char *s);
 t_list	*coordinate(char *s, int *blocks);
 char	**create_field(int blocks);
-void add_elem_in_field(char ***field, t_list *list, int i, int j);
+void add_elem_in_field(char ***field, t_list *list, int i, int j, int blocks);
 int		count_blocks(int blocks);
 t_list	*ft_lstnew(void const *content, size_t content_size);
 int	ft_sqrt(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strnew(size_t size);
 void	ft_putstr(char const *s);
-int		fill_field(char **field, t_list *list, int blocks, int num);
-void remove_figure(char ***field, t_list *list, int i, int j);
+int		fill_field(int i, char **field, t_list *list, int blocks, int num);
+void remove_figure(char ***field, t_list *list, int i, int j, int blocks);
 
 #endif
