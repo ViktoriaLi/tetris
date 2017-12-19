@@ -134,13 +134,18 @@ int		main(int argc, char **argv)
 	vika = coordinate(buf, &blocks);
 	num = count_blocks(blocks);
 	map = create_field(num);
+	while(!fill_field(&map, vika, blocks))
+	{
+		free_mem(map, num);
+		num++;
+		map = create_field(num);
+	}
 	int i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
-	while(fill_field(&map, vika, blocks, num) != 1)
-		create_field(++num);
-
-
+	/*while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}*/
 	if (close(fd) == -1)
 		return (1);
 	return (0);

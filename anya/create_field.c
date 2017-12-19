@@ -69,7 +69,6 @@ char	**create_field(int num)
 			printf("contenty %d\n\n", ((t_coordinate *)(vika->content))[i].y);
 			i++;
 		}
-		//printf("contentx %s\n", ((char *)(vika->content)));
 		vika = vika->next;
 	}
 }
@@ -77,7 +76,7 @@ char	**create_field(int num)
 int	check_in_field(char **field, t_list *list, int i, int j, int num)
 {
 	int k;
-	printf("%d\n", 2);
+	printf("num %d\n", num);
 	k = 0;
 	while (k < 4)
 	{
@@ -89,7 +88,6 @@ int	check_in_field(char **field, t_list *list, int i, int j, int num)
 		else
 				break;
 	}
-	printf("%d\n", 3);
 	printvika(list);
 	if (k < 4 && (i + ((t_coordinate *)(list->content))[k].y >= num || j +
 	((t_coordinate *)(list->content))[k].x >= num))
@@ -169,18 +167,23 @@ void remove_figure(char ***field, t_list *list, int i, int j, int blocks)
 	return (result);
 }*/
 
-int		fill_field(char ***field, t_list *list, int blocks, int num)
+int		fill_field(char ***field, t_list *list, int blocks)
 {
 	int i;
 	int j;
 	int z;
 	int result;
+	int num;
 	t_list *tmp;
 
 	i = 0;
 	z = 0;
+	num = 0;
+	while ((*field)[num] != 0)
+		num++;
 	tmp = list;
 	result = 0;
+	printf("blocks %d\n", blocks);
 	while (i < num)
 	{
 		j = 0;
@@ -189,26 +192,11 @@ int		fill_field(char ***field, t_list *list, int blocks, int num)
 			if (check_in_field(*field, list, i, j, num) == 1)
 			{
 					add_elem_in_field(field, list, i, j, blocks);
-					//printvika(list);
-					if (list->content_size == blocks - 1)
+					if (!fill_field(field, list->next, blocks))
+						remove_figure(field, list, i, j, blocks);
+					else
 						return (1);
-				//	else
-					//	list = list->next;
 			}
-			if (check_in_field(*field, list, i, j, num) == -1)
-			{
-				//return (2);
-				/*free_mem(field, num);
-				field = create_field(num + 1);
-				num++;
-				i = 0;
-				j = 0;
-				list = tmp;
-				continue;*/
-				return (0);
-			}
-			if (!(result = fill_field(field, list->next, blocks, num)))
-					remove_figure(field, list, i, j, blocks);
 			j++;
 		}
 		i++;
@@ -229,6 +217,9 @@ void add_elem_in_field(char ***field, t_list *list, int i, int j, int blocks)
 				++k;
 	}
 	k = 0;
-	while (field)
-		printf("%s\n", (*field)[k++]);
+	while ((*field)[k])
+	{
+		printf("%s\n", (*field)[k]);
+		k++;
+	}
 }
