@@ -13,8 +13,6 @@
 #ifndef FILLIT_H
 # define FILLIT_H
 
-#include <sys/types.h>
-#include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -45,7 +43,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strnew(size_t size);
 void	ft_putstr(char const *s);
 int		fill_field(char ***field, t_list *list, int blocks);
-void remove_figure(char ***field, t_list *list, int i, int j, int blocks);
+void remove_figure(char ***field, t_list *list, int i, int j);
 char **free_mem(char **field, int num);
 
 #endif

@@ -10,15 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-//#include "libft.h"
 #include "fillit.h"
-
 
 int		check_one(char *s, int *i)
 {
@@ -86,7 +78,6 @@ char	*read_file(int fd)
 		ft_putstr("error\n");
 		return (0);
 	}
-	// ft_putstr(buf);
 	if (ft_check(buf) == 1)
 	{
 		if (check_figures(buf) == 1)
@@ -108,7 +99,6 @@ int		main(int argc, char **argv)
 	int		blocks;
 	char **map;
 	int		num;
-
 	(void)argc;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
@@ -119,15 +109,15 @@ int		main(int argc, char **argv)
 	map = create_field(num);
 	while(!fill_field(&map, vika, blocks))
 	{
-		free_mem(map, num);
-		num++;
-		map = create_field(num);
+			free_mem(map, num);
+			num++;
+			map = create_field(num);
 	}
-	/*int i = 0;
-	while (map[i])
+	/*while (k < num)
 	{
-		printf("%s\n", map[i]);
-		i++;
+		ft_putstr(map[k]);
+		write(1, "\n", 1);
+		k++;
 	}*/
 	if (close(fd) == -1)
 		return (1);

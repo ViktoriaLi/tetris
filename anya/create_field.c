@@ -26,10 +26,8 @@ char	**create_field(int num)
 	int 	i;
 	int 	j;
 	char	**field;
-	// int 	num;
 
 	i = 0;
-	// num = ft_sqrt(blocks * 4);
 	field = (char **)malloc(sizeof(char *) * (num + 1));
 	field[num] = NULL;
 	while (i < num)
@@ -51,11 +49,8 @@ char	**create_field(int num)
 	}
 	return (field);
 }
-	// printf("%d\n %d\n", i, j);
-	// while (i--)
-	// 	printf("%s\n", field[i]);
 
-	void	printvika(t_list *vika)
+	/*void	printvika(t_list *vika)
 {
 	int i;
 
@@ -70,12 +65,11 @@ char	**create_field(int num)
 		}
 		vika = vika->next;
 	}
-}
+}*/
 
 int	check_in_field(char **field, t_list *list, int i, int j, int num)
 {
 	int k;
-	printf("num %d\n", num);
 	k = 0;
 	while (k < 4)
 	{
@@ -87,7 +81,6 @@ int	check_in_field(char **field, t_list *list, int i, int j, int num)
 		else
 				break;
 	}
-	printvika(list);
 	if (k < 4 && (i + ((t_coordinate *)(list->content))[k].y >= num || j +
 	((t_coordinate *)(list->content))[k].x >= num))
 		return (-1);
@@ -114,12 +107,12 @@ char **free_mem(char **field, int num)
 	return (field);
 }
 
-void remove_figure(char ***field, t_list *list, int i, int j, int blocks)
+void remove_figure(char ***field, t_list *list, int i, int j)
 {
 	int k;
 
 	k = 0;
-	while (k < blocks)
+	while (k < 4)
 	{
 		(*field)[i + (((t_coordinate *)(list->content))[k].y)][j + (((t_coordinate *)(list->content))[k].x)] = '.';
 				k++;
@@ -170,19 +163,15 @@ int		fill_field(char ***field, t_list *list, int blocks)
 {
 	int i;
 	int j;
-	int z;
-	int result;
 	int num;
-	t_list *tmp;
+	int k = 0;
+	//t_list *tmp;
 
 	i = 0;
-	z = 0;
 	num = 0;
 	while ((*field)[num] != 0)
 		num++;
-	tmp = list;
-	result = 0;
-	printf("blocks %d\n", blocks);
+	//tmp = list;
 	while (i < num)
 	{
 		j = 0;
@@ -190,11 +179,23 @@ int		fill_field(char ***field, t_list *list, int blocks)
 		{
 			if (check_in_field(*field, list, i, j, num) == 1)
 			{
-					add_elem_in_field(field, list, i, j);
-					if (!fill_field(field, list->next, blocks))
-						remove_figure(field, list, i, j, blocks);
-					else
-						return (1);
+				add_elem_in_field(field, list, i, j);
+				if (list->content_size == (size_t)blocks - 1)
+				{
+					while ((*field)[k])
+					{
+						ft_putstr((*field)[k]);
+						write(1, "\n", 1);
+						k++;
+					}
+					return (1);
+				}
+				if (fill_field(field, list->next, blocks))
+					return (1);
+				else
+				{
+					remove_figure(field, list, i, j);
+				}
 			}
 			j++;
 		}
@@ -202,7 +203,6 @@ int		fill_field(char ***field, t_list *list, int blocks)
 	}
 	return (0);
 }
-
 
 void add_elem_in_field(char ***field, t_list *list, int i, int j)
 {
@@ -216,9 +216,11 @@ void add_elem_in_field(char ***field, t_list *list, int i, int j)
 				++k;
 	}
 	k = 0;
-	while ((*field)[k])
+	/*while ((*field)[k])
 	{
-		printf("%s\n", (*field)[k]);
+		ft_putstr((*field)[k]);
+		write(1, "\n", 1);
 		k++;
 	}
+	write(1, "\n", 1);*/
 }
