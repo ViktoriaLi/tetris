@@ -37,7 +37,7 @@ char	*read_file(int fd);
 int		check_figures(char *s);
 t_list	*coordinate(char *s, int *blocks);
 char	**create_field(int blocks);
-void add_elem_in_field(char ***field, t_list *list, int i, int j, int blocks);
+void add_elem_in_field(char ***field, t_list *list, int i, int j);
 int		count_blocks(int blocks);
 t_list	*ft_lstnew(void const *content, size_t content_size);
 int	ft_sqrt(int nb);

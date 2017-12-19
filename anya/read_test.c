@@ -100,23 +100,6 @@ char	*read_file(int fd)
 	return (buf);
 }
 
-// void	printvika(t_list *vika)
-// {
-// 	int i;
-
-// 	while (vika)
-// 	{
-// 		i = 0;
-// 		while (i < 4)
-// 		{
-// 			printf("contentx %d\n", ((t_coordinate *)(vika->content))[i].x);
-// 			printf("contenty %d\n\n", ((t_coordinate *)(vika->content))[i].y);
-// 			i++;
-// 		}
-// 		vika = vika->next;
-// 	}
-// }
-
 int		main(int argc, char **argv)
 {
 	int		fd;
@@ -140,8 +123,8 @@ int		main(int argc, char **argv)
 		num++;
 		map = create_field(num);
 	}
-	int i = 0;
-	/*while (map[i])
+	/*int i = 0;
+	while (map[i])
 	{
 		printf("%s\n", map[i]);
 		i++;

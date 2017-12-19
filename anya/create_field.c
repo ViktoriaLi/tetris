@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-//#include "libft.h"
 #include "fillit.h"
 
 int		count_blocks(int blocks)
@@ -191,7 +190,7 @@ int		fill_field(char ***field, t_list *list, int blocks)
 		{
 			if (check_in_field(*field, list, i, j, num) == 1)
 			{
-					add_elem_in_field(field, list, i, j, blocks);
+					add_elem_in_field(field, list, i, j);
 					if (!fill_field(field, list->next, blocks))
 						remove_figure(field, list, i, j, blocks);
 					else
@@ -205,7 +204,7 @@ int		fill_field(char ***field, t_list *list, int blocks)
 }
 
 
-void add_elem_in_field(char ***field, t_list *list, int i, int j, int blocks)
+void add_elem_in_field(char ***field, t_list *list, int i, int j)
 {
 	int k;
 
