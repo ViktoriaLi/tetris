@@ -99,7 +99,6 @@ int		main(int argc, char **argv)
 	int		blocks;
 	char **map;
 	int		num;
-	(void)argc;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		return (1);
@@ -113,12 +112,6 @@ int		main(int argc, char **argv)
 			num++;
 			map = create_field(num);
 	}
-	/*while (k < num)
-	{
-		ft_putstr(map[k]);
-		write(1, "\n", 1);
-		k++;
-	}*/
 	if (close(fd) == -1)
 		return (1);
 	return (0);
