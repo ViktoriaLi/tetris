@@ -94,7 +94,7 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr("usage: ./a.out filename");
+		ft_putstr("usage: ./a.out file");
 		return (0);
 	}
 	if (!(read_file(argv[1])))
