@@ -59,6 +59,8 @@ int		ft_check(char *s)
 		}
 		i++;
 	}
+	if (check == 0)
+		return (0);
 	return (check_figures(s));
 }
 
