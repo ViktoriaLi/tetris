@@ -101,7 +101,7 @@ int		main(int argc, char **argv)
 	list = coordinate(buf, &blocks);
 	num = ft_sqrt(blocks * 4);
 	map = create_field(num);
-	while (!fill_field(&map, list, blocks))
+	while (!fill_field(&map, list, blocks, num))
 	{
 		free_mem(map, num);
 		num++;

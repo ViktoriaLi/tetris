@@ -38,14 +38,14 @@ int		ft_check(char *s);
 int	check_figures(char *s);
 t_list	*coordinate(char *s, int *blocks);
 char	**create_field(int blocks);
-int	check_in_field(char **field, t_list *list, int i, int j, int num);
+int	check_in_field(char **field, t_list *list, int i, int j);
 void add_elem_in_field(char ***field, t_list *list, int i, int j);
 t_list	*ft_lstnew(void const *content, size_t content_size);
 int	ft_sqrt(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strnew(size_t size);
 void	ft_putstr(char const *s);
-int		fill_field(char ***field, t_list *list, int blocks);
+int		fill_field(char ***field, t_list *list, int blocks, int num);
 void remove_figure(char ***field, t_list *list, int i, int j);
 char **free_mem(char **field, int num);
 void if_correct_symb(char *buf);
@@ -53,6 +53,6 @@ void if_valid_figures(char *buf);
 void find_links(char **buf, int *i, int *if_star, int *j);
 void check_symb(char **buf, int *i, int *if_star, int *j);
 void	ft_lstdel(t_list **alst);
-
+void if_solution(char ***field, t_list **list, int num);
 
 #endif

@@ -29,8 +29,8 @@ int		check_one(char *s, int *i)
 			count = 0;
 			*i += 1;
 		}
-		else if (s[*i] && ((s[*i] != '#' && s[*i] != '.')
-		|| (s[*i] != '\n' && count == 4)))
+		else if (s[*i] && ((s[*i] != '#' && s[*i] != '.') ||
+			(s[*i] != '\n' && count == 4)))
 			return (0);
 		(s[*i] == '#') ? r++ : r;
 		(s[*i] != '\0' && y != 4) ? *i += 1 : *i;
@@ -64,7 +64,7 @@ int		ft_check(char *s)
 	return (check_figures(s));
 }
 
-int	check_figures(char *s)
+int		check_figures(char *s)
 {
 	int i;
 	int symbofblock;
