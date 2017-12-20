@@ -53,11 +53,38 @@ void	list_push_back(t_list **begin_list, t_list *new)
 	list->next = new;
 }
 
+t_list	*ft_lstnew(void const *content, size_t content_size)
+{
+	t_list *new_list;
+
+	new_list = NULL;
+	if (!(new_list = (t_list *)malloc(sizeof(t_list))))
+		return (NULL);
+	if (content)
+	{
+		if (!(new_list->content = malloc(content_size)))
+		{
+			free(new_list);
+			new_list = NULL;
+			return (NULL);
+		}
+		ft_memcpy(new_list->content, content, content_size);
+		new_list->content_size = content_size;
+	}
+	else
+	{
+		new_list->content = NULL;
+		new_list->content_size = 0;
+	}
+	new_list->next = NULL;
+	return (new_list);
+}
+
 void	save_coordinateone(char *s, t_list **list, int *i, int blocks)
 {
-	int			countx;
-	int			county;
-	int			arr;
+	int				countx;
+	int				county;
+	int				arr;
 	t_list			*oneelem;
 	t_coordinate	c[4];
 
@@ -66,7 +93,7 @@ void	save_coordinateone(char *s, t_list **list, int *i, int blocks)
 	arr = 0;
 	while (s[*i] && county < 4)
 	{
-		if (s[(*i)] == '\n' && countx == 4)
+		if (s[*i] == '\n' && countx == 4)
 		{
 			county++;
 			countx = 0;
@@ -75,8 +102,7 @@ void	save_coordinateone(char *s, t_list **list, int *i, int blocks)
 		if (s[*i] == '#')
 		{
 			c[arr].x = countx;
-			c[arr].y = county;
-			arr++;
+			c[arr++].y = county;
 		}
 		(s[*i] != '\0' && county != 4) ? *i += 1 : *i;
 		countx++;

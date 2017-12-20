@@ -95,8 +95,10 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 	{
 		ft_putstr("usage: ./a.out filename");
-		return (1);
+		return (0);
 	}
+	if (!(read_file(argv[1])))
+		return (0);
 	buf = read_file(argv[1]);
 	list = coordinate(buf, &blocks);
 	num = ft_sqrt(blocks * 4);

@@ -104,7 +104,7 @@ int		fill_field(char ***field, t_list *list, int blocks, int num)
 				}
 				if (fill_field(field, list->next, blocks, num))
 					return (1);
-				remove_figure(field, list, i, j);				
+				remove_figure(field, list, i, j);
 			}
 			j++;
 		}
