@@ -38,6 +38,7 @@ char			*ft_strnew(size_t size);
 int				ft_check(char *s);
 int				check_one(char *s, int *i);
 int				check_figures(char *s);
+void			check_cond(char *s, int i, int *ir, int *symbofblock);
 t_list			*coordinate(char *s, int *blocks);
 void			save_coordinateone(char *s, t_list **list, int *i, int blocks);
 void			coordinatemin(t_coordinate c[4]);

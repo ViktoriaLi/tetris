@@ -64,6 +64,18 @@ int		ft_check(char *s)
 	return (check_figures(s));
 }
 
+void	check_cond(char *s, int i, int *ir, int *symbofblock)
+{
+	if (s[i + 1] == '#')
+		(*ir)++;
+	if ((*symbofblock) > 0 && s[i - 1] == '#')
+		(*ir)++;
+	if ((*symbofblock) >= 5 && s[i - 5] == '#')
+		(*ir)++;
+	if ((*symbofblock) <= 15 && s[i + 5] == '#')
+		(*ir)++;
+}
+
 int		check_figures(char *s)
 {
 	int i;
@@ -78,16 +90,7 @@ int		check_figures(char *s)
 		while (s[i] && symbofblock < 20)
 		{
 			if (s[i] == '#')
-			{
-				if (s[i + 1] == '#')
-					ir++;
-				if (symbofblock > 0 && s[i - 1] == '#')
-					ir++;
-				if (symbofblock >= 5 && s[i - 5] == '#')
-					ir++;
-				if (symbofblock <= 15 && s[i + 5] == '#')
-					ir++;
-			}
+				check_cond(s, i, &ir, &symbofblock);
 			symbofblock++;
 			i++;
 		}
