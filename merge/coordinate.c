@@ -38,21 +38,6 @@ void	coordinatemin(t_coordinate c[4])
 	}
 }
 
-void	list_push_back(t_list **begin_list, t_list *new)
-{
-	t_list *list;
-
-	list = *begin_list;
-	if (!list)
-	{
-		*begin_list = new;
-		return ;
-	}
-	while (list->next)
-		list = list->next;
-	list->next = new;
-}
-
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list *new_list;
@@ -80,12 +65,30 @@ t_list	*ft_lstnew(void const *content, size_t content_size)
 	return (new_list);
 }
 
+void	list_push_back(t_list **begin_list, t_coordinate *c, int blocks)
+{
+	t_list	*list;
+	t_list	*oneelem;
+
+	coordinatemin(c);
+	list = *begin_list;
+	oneelem = ft_lstnew(c, sizeof(t_coordinate) * 4);
+	oneelem->content_size = blocks;
+	if (!list)
+	{
+		*begin_list = oneelem;
+		return ;
+	}
+	while (list->next)
+		list = list->next;
+	list->next = oneelem;
+}
+
 void	save_coordinateone(char *s, t_list **list, int *i, int blocks)
 {
 	int				countx;
 	int				county;
 	int				arr;
-	t_list			*oneelem;
 	t_coordinate	c[4];
 
 	countx = 0;
@@ -107,10 +110,7 @@ void	save_coordinateone(char *s, t_list **list, int *i, int blocks)
 		(s[*i] != '\0' && county != 4) ? *i += 1 : *i;
 		countx++;
 	}
-	coordinatemin(c);
-	oneelem = ft_lstnew(c, sizeof(t_coordinate) * 4);
-	oneelem->content_size = blocks;
-	list_push_back(&(*list), oneelem);
+	list_push_back(&(*list), c, blocks);
 }
 
 t_list	*coordinate(char *s, int *blocks)

@@ -43,7 +43,7 @@ t_list			*coordinate(char *s, int *blocks);
 void			save_coordinateone(char *s, t_list **list, int *i, int blocks);
 void			coordinatemin(t_coordinate c[4]);
 t_list			*ft_lstnew(void const *content, size_t content_size);
-void			list_push_back(t_list **begin_list, t_list *new);
+void			list_push_back(t_list **begin_list, t_coordinate *c, int blocks);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 int				ft_sqrt(int nb);
 char			**create_field(int blocks);
