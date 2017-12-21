@@ -68,19 +68,24 @@ int		check_in_field(char **field, t_list *list, int i, int j)
 		return (1);
 }
 
-void	if_solution(char ***field, t_list **list, int num)
+int		if_solution(char ***field, t_list **list, int num, int blocks)
 {
 	int	k;
 
 	k = 0;
-	while ((*field)[k])
+	if ((*list)->content_size == (size_t)blocks - 1)
 	{
-		ft_putstr((*field)[k]);
-		write(1, "\n", 1);
-		k++;
+		while ((*field)[k])
+		{
+			ft_putstr((*field)[k]);
+			write(1, "\n", 1);
+			k++;
+		}
+		ft_lstdel(list);
+		free_mem((*field), num);
+		return (1);
 	}
-	ft_lstdel(list);
-	free_mem((*field), num);
+	return (0);
 }
 
 int		fill_field(char ***field, t_list *list, int blocks, int num)
@@ -97,11 +102,8 @@ int		fill_field(char ***field, t_list *list, int blocks, int num)
 			if (check_in_field(*field, list, i, j) == 1)
 			{
 				add_elem_in_field(field, list, i, j);
-				if (list->content_size == (size_t)blocks - 1)
-				{
-					if_solution(field, &list, num);
+				if (if_solution(field, &list, num, blocks))
 					return (1);
-				}
 				if (fill_field(field, list->next, blocks, num))
 					return (1);
 				remove_figure(field, list, i, j);

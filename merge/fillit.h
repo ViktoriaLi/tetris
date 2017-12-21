@@ -51,7 +51,7 @@ int				fill_field(char ***field, t_list *list, int blocks, int num);
 int				check_in_field(char **field, t_list *list, int i, int j);
 void			add_elem_in_field(char ***field, t_list *list, int i, int j);
 void			remove_figure(char ***field, t_list *list, int i, int j);
-void			if_solution(char ***field, t_list **list, int num);
+int				if_solution(char ***field, t_list **list, int num, int blocks);
 char			**free_mem(char **field, int num);
 void			ft_lstdel(t_list **alst);
 
